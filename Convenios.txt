@@ -1,0 +1,3 @@
+Nuevo feature: feature/chat
+Bug: bug/chat o hotfix/chat
+Cosa experimental: junk/chat
