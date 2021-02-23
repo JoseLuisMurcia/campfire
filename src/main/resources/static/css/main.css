@@ -1,0 +1,195 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;1,400&display=swap");
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #FFC93C;
+  font-family: "Montserrat";
+  height: 100vh;
+}
+
+.corner-abstract {
+  margin-bottom: 100%;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  place-content: space-between;
+  text-align: center;
+}
+
+.left-col {
+  position: absolute;
+  margin: 7% 0 0 5%;
+}
+
+.left-col .slogan {
+  margin: 0;
+  padding: 3% 0 0 0;
+  font-size: 5em;
+  font-weight: 600;
+  color: #0D1F2D;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.left-col .campfire-illustration {
+  padding: 3% 0 0 0;
+  width: 80%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.right-col {
+  position: relative;
+  margin: 6em 0 0 0;
+}
+
+.right-col .campfire-logo {
+  width: 16%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  fill: #FF6F3C;
+  -webkit-filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+}
+
+.right-col .campfire-name {
+  margin: 0;
+  font-size: 6.5em;
+  font-weight: 700;
+  color: #0D1F2D;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: 0 0 0.5em 0;
+  -webkit-filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+}
+
+.right-col .login-box {
+  display: block;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.right-col .login-box .login-fields {
+  margin: 0 0 4% 0;
+}
+
+.right-col .login-box .login-fields input[type=text],
+.right-col .login-box .login-fields input[type=password] {
+  width: 40%;
+  margin: 0.3em;
+  background-color: #E8E8E8;
+  color: #0D1F2D;
+  font-size: 2em;
+  height: 2.7em;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  padding: 0 2.5em 0 2.5em;
+  border-radius: 2em;
+  -webkit-box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.right-col .login-box .login-fields input[type=text]::-webkit-input-placeholder,
+.right-col .login-box .login-fields input[type=password]::-webkit-input-placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.right-col .login-box .login-fields input[type=text]:-ms-input-placeholder,
+.right-col .login-box .login-fields input[type=password]:-ms-input-placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.right-col .login-box .login-fields input[type=text]::-ms-input-placeholder,
+.right-col .login-box .login-fields input[type=password]::-ms-input-placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.right-col .login-box .login-fields input[type=text]::placeholder,
+.right-col .login-box .login-fields input[type=password]::placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.right-col .login-box .login-fields input[type=text]::-moz-selection,
+.right-col .login-box .login-fields input[type=password]::-moz-selection {
+  color: #0D1F2D;
+  background: #FF6F3C;
+}
+
+.right-col .login-box .login-fields input[type=text]::selection,
+.right-col .login-box .login-fields input[type=password]::selection {
+  color: #0D1F2D;
+  background: #FF6F3C;
+}
+
+.right-col .login-box .login-buttons .register {
+  margin: 0 0.5em 0 0.5em;
+  text-decoration: none;
+  font-family: "Montserrat";
+  font-size: 2.5em;
+  padding: 0.1em 0.8em 0.1em 0.8em;
+  border-radius: 1em;
+  font-weight: 700;
+  color: #0D1F2D;
+  border-color: #0D1F2D;
+  border: 7px solid;
+}
+
+.right-col .login-box .login-buttons .login {
+  margin: 0 0.5em 0 0.5em;
+  background: #FF6F3C;
+  font-family: "Montserrat";
+  font-size: 3em;
+  border-radius: 1em;
+  font-weight: 700;
+  color: #0D1F2D;
+  border: none;
+  outline: none;
+  padding: 0.1em 0.8em 0.1em 0.8em;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.right-col .login-box .password-container {
+  margin-top: 2%;
+}
+
+.right-col .login-box .password-container .forgot-password {
+  padding: 0 0 0 28%;
+  text-decoration: none;
+  font-family: "Montserrat";
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #0D1F2D;
+}
+/*# sourceMappingURL=main.css.map */
