@@ -18,25 +18,29 @@ public class LoginService {
         return userRepo.findByUsername(username).isEmpty();
     }
 
-    public boolean checkCredentials(String username, String password) {
+    public LoginResponse checkCredentials(String username, String password) {
         Optional<User> user = userRepo.findByUsername(username);
 
         if (!user.isPresent())
-            return false;
+            return LoginResponse.USERNAME_NOT_FOUND;
 
         User validUser = user.get();
-        return validUser.getPassword().equals(password);
+        if (validUser.getPassword().equals(password)) {
+            return LoginResponse.LOGGED_IN;
+        } else {
+            return LoginResponse.CREDENTIALS_NOT_VALID;
+        }
     }
 
-    public boolean registerUser(User user) {
+    public LoginResponse registerUser(User user) {
         if (!isUsernameAvailable(user.getUsername()))
-            return false;
+            return LoginResponse.USERNAME_NOT_AVAILABLE;
 
         userRepo.save(user);
-        return true;
+        return LoginResponse.REGISTERED;
     }
 
-    public boolean loginUser(User user) {
+    public LoginResponse loginUser(User user) {
         return checkCredentials(user.getUsername(), user.getPassword());
     }
 }
