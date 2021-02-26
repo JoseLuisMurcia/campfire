@@ -14,8 +14,8 @@ public class User {
     protected User() {
     }
 
-    public User(long id, String username, String password) {
-        this.id = id;
+    public User(String username, String password) {
+        super();
         this.setUsername(username);
         this.setPassword(password);
     }
