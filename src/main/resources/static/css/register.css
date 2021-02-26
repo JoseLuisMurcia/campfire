@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;1,400&display=swap");
+body {
+  margin: 0;
+  background-color: #FFC93C;
+  font-family: "Montserrat";
+}
+
+.register-box {
+  margin: 5em 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.register-box .campfire-logo {
+  width: 15em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  fill: #FF6F3C;
+  -webkit-filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+}
+
+.register-box .campfire-name {
+  margin: 0;
+  font-size: 6.5em;
+  font-weight: 700;
+  color: #0D1F2D;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin: 0 0 0.5em 0;
+  -webkit-filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 7px 0px rgba(0, 0, 0, 0.25));
+}
+
+.register-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0%;
+}
+
+.register-container input[type=text],
+.register-container input[type=password] {
+  width: 15em;
+  margin: 0.3em;
+  background-color: #E8E8E8;
+  color: #0D1F2D;
+  font-size: 2em;
+  height: 2.7em;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  padding: 0 2.5em 0 2.5em;
+  border-radius: 2em;
+  -webkit-box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
+.register-container input[type=text]::-webkit-input-placeholder,
+.register-container input[type=password]::-webkit-input-placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.register-container input[type=text]:-ms-input-placeholder,
+.register-container input[type=password]:-ms-input-placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.register-container input[type=text]::-ms-input-placeholder,
+.register-container input[type=password]::-ms-input-placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.register-container input[type=text]::placeholder,
+.register-container input[type=password]::placeholder {
+  font-family: "Montserrat";
+  font-style: italic;
+  font-weight: 400;
+  color: #0D1F2D;
+  opacity: 50%;
+}
+
+.register-container input[type=text]::-moz-selection,
+.register-container input[type=password]::-moz-selection {
+  color: #0D1F2D;
+  background: #FF6F3C;
+}
+
+.register-container input[type=text]::selection,
+.register-container input[type=password]::selection {
+  color: #0D1F2D;
+  background: #FF6F3C;
+}
+
+.register-container input[type=submit] {
+  margin: 1em 0.5em 0 0.5em;
+  background: #FF6F3C;
+  font-family: "Montserrat";
+  font-size: 3em;
+  border-radius: 1em;
+  font-weight: 700;
+  color: #0D1F2D;
+  border: none;
+  outline: none;
+  padding: 0.1em 0.8em 0.1em 0.8em;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
+}
+/*# sourceMappingURL=register.css.map */
