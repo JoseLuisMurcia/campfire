@@ -19,7 +19,7 @@ public class LoginController {
 
     @GetMapping("/register")
     public String getRegister() {
-        return "html/register.html";
+        return "html/landing-page/register.html";
     }
 
     @PostMapping("register-done")
