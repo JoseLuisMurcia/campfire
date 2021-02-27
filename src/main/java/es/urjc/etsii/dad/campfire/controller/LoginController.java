@@ -26,7 +26,7 @@ public class LoginController {
     public String postRegister(@RequestParam String username, @RequestParam String password) {
         LoginResponse registerResponse = loginService.registerUser(new User(username, password));
 
-        if (registerResponse == LoginResponse.REGISTERED) {
+        if (registerResponse == LoginResponse.SUCCESS) {
             return "redirect:/";
         } else {
             return "redirect:/register";
@@ -37,7 +37,7 @@ public class LoginController {
     public String loginDone(Model model, String username, String password) {
         LoginResponse loginResponse = loginService.loginUser(new User(username, password));
 
-        if (loginResponse == LoginResponse.LOGGED_IN) {
+        if (loginResponse == LoginResponse.SUCCESS) {
             model.addAttribute("username", username);
             return "logged-in";
         } else {
