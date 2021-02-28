@@ -8,6 +8,6 @@ public class ChatController {
     
     @GetMapping("/chat_lobby")
     public String getChat(){
-        return "html/chat.html";
+        return "html/chat/chat.html";
     }
 }
