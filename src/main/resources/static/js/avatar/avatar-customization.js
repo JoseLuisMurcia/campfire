@@ -1,7 +1,7 @@
 /*
     1. Get our avatar attributes -> Sockets ?
     2. Preload resources -> DONE
-    3. Print our avatar -> DONE ? nope xd
+    3. Print our avatar -> DONE
     4. Set button callbacks -> DONE
     5. Save our avatar attributes -> Sockets ?
 */
@@ -14,17 +14,16 @@ var attributes = [0, 0, 0, 0, 0]; //pColor, secColor, eyesColor, hat and accesso
 
 
 //PRELOAD -----------------------------------------------------------------
-var aliceBlue = "#F0F8FF";
-var antiqueWhite = "#FAEBD7";
-var aquaMarine = "#7FFFD4";
-var black = "#000000";
-var cadetBlue = "#5F9EA0";
-var darkOrange = "#FF8C00";
-var darkSalmon = "#E9967A";
-var yellow = "#FFFF00";
+var aliceBlue = "invert(98%) sepia(67%) saturate(5182%) hue-rotate(175deg) brightness(116%) contrast(108%)";
+var antiqueWhite = "invert(98%) sepia(82%) saturate(588%) hue-rotate(301deg) brightness(105%) contrast(96%)";
+var aquaMarine = "invert(93%) sepia(10%) saturate(1907%) hue-rotate(88deg) brightness(104%) contrast(101%)";
+var black = "invert(0%) sepia(5%) saturate(7500%) hue-rotate(93deg) brightness(101%) contrast(99%)";
+var cadetBlue = "invert(69%) sepia(5%) saturate(2802%) hue-rotate(133deg) brightness(83%) contrast(88%)";
+var darkOrange = "invert(56%) sepia(92%) saturate(1604%) hue-rotate(358deg) brightness(98%) contrast(109%)";
+var yellow = "invert(83%) sepia(78%) saturate(5143%) hue-rotate(357deg) brightness(103%) contrast(102%)";
 
 //Array of avaliable resources
-var pColors = [aliceBlue, antiqueWhite, aquaMarine, black, cadetBlue, darkOrange, darkSalmon, yellow];
+var pColors = [aliceBlue, antiqueWhite, aquaMarine, black, cadetBlue, darkOrange, yellow];
 var sColors = pColors;
 var eyesColors = pColors;
 var hats = [];
@@ -81,10 +80,9 @@ const loadElements = () =>
 
 function printAvatar()
 {
-    //pColorDisplay.color = pColors[attributes[0]];
-    //secColorDisplay.style.color = secColors[attributes[1]];
-    //eyesColorDisplay.style.color = eyesColors[attributes[2]];
-    //console.log(hatDisplay);
+    pColorDisplay.style.filter = pColors[attributes[0]];
+    secColorDisplay.style.filter = sColors[attributes[1]];
+    eyesColorDisplay.style.filter = eyesColors[attributes[2]];
     hatDisplay.src = hats[attributes[3]];
     accessoryDisplay.src = accessories[attributes[4]];
 }
@@ -98,6 +96,7 @@ const setResourcesLength = () =>
 
 function preloadAvatarResources()
 {
+    //- SOCKETS -> ATTRIBUTES
     hats = preloadHats();
     accessories = preloadAccessories();
     loadElements();
@@ -121,10 +120,10 @@ function rotateArray(attributeId, toRight)
 
 function saveAvatar()
 {
-    //let msg = new Object();
-    //msg.event = "SAVE";
-    //msg.attributes = attributes;
-    //socket.send(JSON.stringify(msg))
+    let msg = new Object();
+    msg.event = "SAVE";
+    msg.attributes = attributes;
+    socket.send(JSON.stringify(msg))
 }
 
 function setCallbacks()
