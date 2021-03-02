@@ -1,42 +1,29 @@
+//INITIALIZE SOCKET
+//var socket = new WebSocket("ws://127.0.0.1:6501/avatar-customization");
+
 function preloadImages() {
     var _images = new Array()
-    for (i = 0; i < preload.arguments.length; i++) 
+    for (i = 0; i < arguments.length; i++) 
     {
         _images[i] = new Image()
-        _images[i].src = preload.arguments[i]
+        _images[i].src = arguments[i]
     }
     return _images;
 }
 
-function preloadPrimaryColors()
-{
-    //Something here, depends on the storage :c
-}
-
-function preloadSecColors()
-{
-    //Something here, depends on the storage :c
-}
-
-function preloadEyesColors()
-{
-    //Something here, depends on the storage :c
-}
-
 function preloadHats()
 {
-    return preloadImages(
-        "http://domain.tld/gallery/image-001.jpg",
-        "http://domain.tld/gallery/image-002.jpg",
-        "http://domain.tld/gallery/image-003.jpg"
-    )
+    return ["assets/avatar-resources/hats/HatDefault.png",
+        "assets/avatar-resources/hats/Hat01.png",
+        "assets/avatar-resources/hats/Hat02.png"];
+    //)
 }
 
 function preloadAccessories()
 {
-    return preloadImages(
-        "http://domain.tld/gallery/image-001.jpg",
-        "http://domain.tld/gallery/image-002.jpg",
-        "http://domain.tld/gallery/image-003.jpg"
-    )
+    //preloadImages(
+    return ["assets/avatar-resources/accessories/AccessoryDefault.png",
+        "assets/avatar-resources/accessories/Accessory01.png",
+        "assets/avatar-resources/accessories/Accessory02.png"];
+    //)
 }

@@ -39,7 +39,7 @@ public class LoginController {
 
         if (loginResponse == LoginResponse.SUCCESS) {
             model.addAttribute("username", username);
-            return "logged-in";
+            return "avatar-customization";
         } else {
             return "redirect:/";
         }

@@ -9,7 +9,7 @@ public class AvatarCustController
 {
 
 
-    @GetMapping("/Germaaan")
+    @GetMapping("/customization")
     public String GoToAvatarWindow(Model _model)
     {
         return "";

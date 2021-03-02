@@ -1,7 +1,11 @@
 package es.urjc.etsii.dad.campfire.model;
+
 import java.awt.Color;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -13,6 +17,9 @@ public class Avatar
     private int hatId;
     private int accessoryId;
     //Primary key
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
     @OneToOne
     private User user;
 
