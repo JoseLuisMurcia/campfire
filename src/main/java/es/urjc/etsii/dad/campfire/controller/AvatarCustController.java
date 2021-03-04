@@ -12,6 +12,6 @@ public class AvatarCustController
     @GetMapping("/customization")
     public String GoToAvatarWindow(Model _model)
     {
-        return "";
+        return "avatar-customization";
     }
 }

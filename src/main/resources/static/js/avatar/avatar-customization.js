@@ -6,6 +6,18 @@
     5. Save our avatar attributes -> Sockets ?
 */
 
+//SOCKET CALLBACKS
+var id;
+//socket.onopen = () => 
+//{​​
+//    if(DEBUG==true){​​ console.log('[DEBUG] LOBBY WebSocket connection opened.'); }​​
+//}​​
+//
+//socket.onclose = () => 
+//{​​
+//    if(DEBUG==true){​​console.log('[DEBUG] LOBBY WebSocket connection closed.');}​​
+//}​​​​
+
 //AVATAR ATTRIBUTES -----------------------------------------------------------------
 
 //Our avatar attributes
@@ -89,14 +101,12 @@ function printAvatar()
 
 const setResourcesLength = () =>
 {
-    //console.log(pColors, sColors, eyesColors, hats, accessories);
     resourcesLength = [pColors.length, sColors.length,
         eyesColors.length, hats.length, accessories.length];
 }
 
 function preloadAvatarResources()
 {
-    //- SOCKETS -> ATTRIBUTES
     hats = preloadHats();
     accessories = preloadAccessories();
     loadElements();
@@ -105,7 +115,7 @@ function preloadAvatarResources()
     setCallbacks();
 }
 
-window.onload = () => preloadAvatarResources();
+//window.onload = () => preloadAvatarResources();
 
 //BUTTON CALLBACKS -----------------------------------------------------------------
 function rotateArray(attributeId, toRight)
@@ -122,7 +132,12 @@ function saveAvatar()
 {
     let msg = new Object();
     msg.event = "SAVE";
-    msg.attributes = attributes;
+    msg.attribute0 = attributes[0]
+    msg.attribute1 = attributes[1]
+    msg.attribute2 = attributes[2]
+    msg.attribute3 = attributes[3]
+    msg.attribute4 = attributes[4]
+    msg.id = id;
     socket.send(JSON.stringify(msg))
 }
 
@@ -143,4 +158,17 @@ function setCallbacks()
     accessoryLeftBut.onclick = () => rotateArray(4, false);
 
     saveBut.onclick = () => saveAvatar();
+}
+console.log(socket);
+
+socket.onmessage = (message) => 
+{
+    var msg = JSON.parse(message.data);
+    attributes[0] = msg.attribute0;
+    attributes[1] = msg.attribute1;
+    attributes[2] = msg.attribute2;
+    attributes[3] = msg.attribute3;
+    attributes[4] = msg.attribute4;
+    id = msg.id;
+    preloadAvatarResources();
 }

@@ -1,30 +1,32 @@
 package es.urjc.etsii.dad.campfire.model;
 
-import java.awt.Color;
+//import java.awt.Color;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+//import javax.persistence.Entity;
+
 import javax.persistence.Id;
+//import javax.persistence.OneToOne;
 import javax.persistence.OneToOne;
 
-@Entity
-public class Avatar
-{
-    private Color primaryColor;
-    private Color secondaryColor;
-    private Color eyesColor;
+import org.springframework.web.socket.WebSocketSession;
+
+//@Entity
+public class Avatar {
+    private int primaryColor;
+    private int secondaryColor;
+    private int eyesColor;
     private int hatId;
     private int accessoryId;
-    //Primary key
+
+    private WebSocketSession session; // Lo tiene que tener
+    // Primary key
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     @OneToOne
     private User user;
 
-    public Avatar(Color pColor, Color sColor, Color eColor, int hatId, int acessoryId)
-    {
+    public Avatar(int id, int pColor, int sColor, int eColor, int hatId, int acessoryId) {
+        this.id = id;
         this.primaryColor = pColor;
         this.secondaryColor = sColor;
         this.eyesColor = eColor;
@@ -32,27 +34,41 @@ public class Avatar
         this.accessoryId = acessoryId;
     }
 
-    public Color getPrimaryColor() {
+    public WebSocketSession getSession() {
+        return session;
+    }
+
+    public void setSession(WebSocketSession session) {
+        this.session = session;
+    }
+
+    public int[] getAttributes()
+    {
+        int[] _attributes = {primaryColor, secondaryColor, eyesColor, hatId, accessoryId};
+        return _attributes;
+    }
+
+    public int getPrimaryColor() {
         return primaryColor;
     }
 
-    public void setPrimaryColor(Color primaryColor) {
+    public void setPrimaryColor(int primaryColor) {
         this.primaryColor = primaryColor;
     }
 
-    public Color getSecondaryColor() {
+    public int getSecondaryColor() {
         return secondaryColor;
     }
 
-    public void setSecondaryColor(Color secondaryColor) {
+    public void setSecondaryColor(int secondaryColor) {
         this.secondaryColor = secondaryColor;
     }
 
-    public Color getEyesColor() {
+    public int getEyesColor() {
         return eyesColor;
     }
 
-    public void setEyesColor(Color eyesColor) {
+    public void setEyesColor(int eyesColor) {
         this.eyesColor = eyesColor;
     }
 
@@ -72,11 +88,11 @@ public class Avatar
         this.accessoryId = accessoryId;
     }
 
-    public User getUser() {
-        return user;
-    }
+   //public User getUser() {
+   //    return user;
+   //}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+   //public void setUser(User user) {
+   //    this.user = user;
+   //}
 }
