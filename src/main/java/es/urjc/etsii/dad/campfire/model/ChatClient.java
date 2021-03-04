@@ -7,6 +7,7 @@ public class ChatClient{
 
 	private final WebSocketSession session;
 	private final int clientId;
+	private int roomId;
 
 	public ChatClient(int clientId, WebSocketSession session) {
 		this.clientId = clientId;
@@ -23,6 +24,14 @@ public class ChatClient{
 
 	public void sendMessage(String msg) throws Exception {
 		this.session.sendMessage(new TextMessage(msg));
+	}
+
+	public int getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 
 }

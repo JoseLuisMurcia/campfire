@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Chat lobby</title>
+    <h1>Chat lobby</h1>
+    <h2>Hello {{username}}</h2>
+    
+    <script src="../../js/chat/lobby.js"></script>
+    <meta charset="UTF-8"/>
+    <style>
+        #roomList{
+            width: 50em;
+            height: 37em;
+            border: 2px solid rgb(107, 107, 107);
+            font-family: monospace;
+            overflow-x: hidden;
+            overflow-wrap: break-word;
+            background-color:rgb(140, 150, 150);
+        }
+    </style>
+</head>
+<body>
+    <form action="" onsubmit="createRoom();return false">
+        <p>Create your room: </p>
+        <textarea name = 'text' id="textArea" rows=5 cols=40></textarea>
+        <input type = 'submit' value='send'/>
+    </form>
+    <h2>List of chats</2>
+    <div id = "roomList">
+        {{#chats}}
+        <a href = "chat_room/{{id}}">{{name}}</a>
+        <br>
+        {{/chats}}    
+    </div>
+    <var id="userName">{{username}}</var>
+</body>
+</html>

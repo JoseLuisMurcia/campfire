@@ -1,19 +1,17 @@
-socket = new WebSocket("ws://127.0.0.1:6501/chat")
+const socket = new WebSocket("ws://127.0.0.1:6501/chat");
+//	box = document.getElementById('chatMessages');
+let roomId;
 
 var id=-1;
-var DEBUG = true;
+const DEBUG = true;
 socket.onopen = () => {
 	if(DEBUG==true){ console.log('[DEBUG] WebSocket connection opened.'); }
-
-    // In case JOIN message from server failed, we force it
-	/*
-    if (typeof game.global.myPlayer.id == 'undefined') {
-	        console.log("[DEBUG] Forcing joining server...");
-	    let message = {
-	        event: 'JOIN'
-	    }
-	    socket.send(JSON.stringify(message))
-	}*/
+	roomId = document.getElementById("roomid").innerText;
+	let message = {
+		event: 'SET PLAYER ROOM ID',
+		roomID: roomId
+	}
+	socket.send(JSON.stringify(message))
 }
 
 socket.onclose = () => {
@@ -28,20 +26,14 @@ socket.onmessage = (message) => {
 	    case 'JOIN':
 	        joinMsg(msg)
 	        break
-	    case 'NEW ROOM' :
-			newRoomMsg(msg)
-	        break
-	    case 'GAME STATE UPDATE' :
-			updateMsg(msg)
-	        break
-	    case 'REMOVE PLAYER' :
-			removePlayerMsg(msg)
-	        break
 		case 'CLIENT MESSAGE' :
 			updateChat(msg)
 			break
 		case 'CHAT JOIN':
 			playerJoined(msg)
+			break
+		case 'REMOVE PLAYER':
+			removePlayerMsg(msg)
 			break
 	    default :
 	        console.dir(msg)
@@ -50,11 +42,11 @@ socket.onmessage = (message) => {
 
 function submitFunc()
 {
-	var textValue = document.getElementById("textArea").value;
+	let textValue = document.getElementById("textArea").value;
 	if(textValue == '') return;
-	var playerText = "user " + id + ": "+ textValue;
+	let playerName = document.getElementById("username").innerText;
+	let playerText = playerName + ": "+ textValue;
 	document.getElementById("textArea").value = '';
-
 	let message = {
 		event: 'CHAT MESSAGE',
 		text: playerText
@@ -64,7 +56,7 @@ function submitFunc()
 
 // WEBSOCKET MESSAGES PROTOCOL:
 	
-function joinMsg(msg) {
+function joinMsg(msg) { //Sent when you join the chat
     if(DEBUG==true){
 		console.log('[DEBUG] JOIN message recieved');
     	console.dir(msg);
@@ -76,38 +68,21 @@ function joinMsg(msg) {
 	socket.send(JSON.stringify(message))
 } // end joinMsg
 
-function newRoomMsg(msg) {
-	if(DEBUG==true){
-    	console.log('[DEBUG] NEW ROOM message recieved')
-    	console.dir(msg)
-	}
-} //end newRoomMsg
 
-function updateMsg (msg) {
-	if(DEBUG==true){
-    	console.log('[DEBUG] GAME STATE UPDATE message recieved')
-    	console.dir(msg)
-	}
-} // end updateMsg
-
-function removePlayerMsg(msg) {
+function removePlayerMsg(msg) { 
     console.log('[DEBUG] REMOVE PLAYER message recieved')
     console.dir(msg.players)
 
 	var tag = document.createElement("i");
-	var playerText = "user " + msg.id + " left the chat"
+	var playerName = document.getElementById("username").innerText;
+	var playerText = "user " + playerName + " left the chat"
    	var text = document.createTextNode(playerText);
    	tag.appendChild(text);
    	var element = document.getElementById("chatMessages");
    	element.appendChild(tag); 
-
-	tag = document.createElement("br");
-	element.appendChild(tag); 
-	tag = document.createElement("br");
-	element.appendChild(tag); 
 } // end removePlayerMsg
 
-function updateChat(msg){
+function updateChat(msg){ //appends the message and the user who sent it
 	if(DEBUG==true){
     	console.log('[DEBUG] CHAT MESSAGE recieved')
     	console.dir(msg)
@@ -122,21 +97,17 @@ function updateChat(msg){
 
 
 
-function playerJoined(msg){
+function playerJoined(msg){ //Called when a user joins the chat, updates the chat
 	if(DEBUG==true){
     	console.log('[DEBUG] CHAT MESSAGE recieved')
     	console.dir(msg)
 	}
 
 	var tag = document.createElement("i");
-	var playerText = "user " + msg.id + " joined the chat"
+	var playerName = document.getElementById("username").innerText;
+	var playerText = playerName + " joined the chat"
    	var text = document.createTextNode(playerText);
    	tag.appendChild(text);
    	var element = document.getElementById("chatMessages");
    	element.appendChild(tag); 
-
-	tag = document.createElement("br");
-	element.appendChild(tag); 
-	tag = document.createElement("br");
-	element.appendChild(tag);
 }
