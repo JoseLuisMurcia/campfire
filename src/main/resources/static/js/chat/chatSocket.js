@@ -16,12 +16,10 @@ socket.onopen = () => {
 
 socket.onclose = () => {
 	if(DEBUG==true){console.log('[DEBUG] WebSocket connection closed.');}
-
 }
 
 socket.onmessage = (message) => {
 	var msg = JSON.parse(message.data)
-
 	switch (msg.event) {
 	    case 'JOIN':
 	        joinMsg(msg)
@@ -73,7 +71,7 @@ function removePlayerMsg(msg) {
     console.log('[DEBUG] REMOVE PLAYER message recieved')
     console.dir(msg.players)
 
-	var tag = document.createElement("i");
+	var tag = document.createElement("p");
 	var playerName = document.getElementById("username").innerText;
 	var playerText = "user " + playerName + " left the chat"
    	var text = document.createTextNode(playerText);
@@ -103,7 +101,7 @@ function playerJoined(msg){ //Called when a user joins the chat, updates the cha
     	console.dir(msg)
 	}
 
-	var tag = document.createElement("i");
+	var tag = document.createElement("p");
 	var playerName = document.getElementById("username").innerText;
 	var playerText = playerName + " joined the chat"
    	var text = document.createTextNode(playerText);

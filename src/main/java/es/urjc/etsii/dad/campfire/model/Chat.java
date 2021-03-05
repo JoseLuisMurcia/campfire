@@ -1,16 +1,29 @@
 package es.urjc.etsii.dad.campfire.model;
 
-import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Chat {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
-    private ConcurrentMap<Long,String> messages = new ConcurrentHashMap<>();
-    private AtomicLong nextId = new AtomicLong();
+
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ChatMessage> messages = new ArrayList<>();
+
+    protected Chat(){}
 
     public Chat(String name){
         this.name = name;
@@ -32,12 +45,15 @@ public class Chat {
         return this.name;
     }
 
-    public Collection<String> findAll(){
-        return messages.values();
+    public void addMessage(ChatMessage message){
+        messages.add(message);
     }
 
-    public void addMessage(String message){
-        long id = nextId.getAndIncrement();
-        this.messages.put(id,message);
+    public List<ChatMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
     }
 }

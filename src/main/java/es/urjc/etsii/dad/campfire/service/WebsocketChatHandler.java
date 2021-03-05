@@ -1,9 +1,11 @@
 package es.urjc.etsii.dad.campfire.service;
 
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -11,7 +13,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import es.urjc.etsii.dad.campfire.model.Chat;
 import es.urjc.etsii.dad.campfire.model.ChatClient;
+import es.urjc.etsii.dad.campfire.model.ChatMessage;
 import es.urjc.etsii.dad.campfire.model.ChatServer;
+import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,13 +27,25 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 	private ChatServer server;
 
 	@Autowired
-	private ChatService chatService;
+	private ChatRoomsRepository chatRoomsRepository;
 
 	private static final int LOBBY_ID = -3;
 	private static final String CLIENT_ATTRIBUTE = "CLIENT";
 	private ObjectMapper mapper = new ObjectMapper();
 	private AtomicInteger clientId = new AtomicInteger(0);
 
+	private boolean DEBUG = false;
+
+	@PostConstruct
+	public void init(){
+		if(DEBUG == true){
+			Chat chat = new Chat("FOSHADORES");
+			chat.addMessage(new ChatMessage("POR LA RAJA DE TU FALDA"));
+			chat.addMessage(new ChatMessage("YO TUVE UN PIÑAZO CON UN SEAT PANDA"));
+			chatRoomsRepository.save(chat);
+		}
+	}
+	
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -53,14 +69,21 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 			System.out.println(node.get("event").asText());
 			switch (node.get("event").asText()) {
 			case "SET PLAYER ROOM ID":
-				System.out.println("PLAYER ROOM: " + node.get("roomID").asInt());
 				client.setRoomId(node.get("roomID").asInt());
 				server.addChatClient(client);
 				break;
 			case "CHAT MESSAGE":
+				String chatMessage = node.get("text").asText();
+
+				System.out.println("CLIENT CHAT MESSAGE: " + chatMessage);
+				System.out.println("CHAT MESSAGE ROOM ID: " + client.getRoomId());
+
+				findChatAndAddMessage(chatMessage, client.getRoomId());
+
+				
 				msg.put("event", "CLIENT MESSAGE");
 				msg.put("id", client.getClientId());
-				msg.put("text", node.get("text").asText());
+				msg.put("text", chatMessage);
 				server.broadcast(msg.toString(), client.getRoomId());
 				break;
 			case "PLAYER JOINED":
@@ -75,11 +98,19 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 			case "ROOM CREATION":
 				String chatName = node.get("text").asText();
 				Chat chat = new Chat(chatName);
-				chatService.addChat(chat);
+				chatRoomsRepository.save(chat);
+				if(DEBUG==true){
+					Optional<Chat> optionalChat = chatRoomsRepository.findById((long)chat.getId());
+					System.out.println("OPTIONALCHAT isPresent: " + optionalChat.isPresent());
+					if(optionalChat.isPresent())
+					{
+						System.out.println("CHAT OBJECT: " + optionalChat.get());
+						System.out.println("CHAT ID: " + optionalChat.get().getId());
+					}
+				}
 				msg.put("event","ROOM CREATED");
 				msg.put("text", chatName);
 				msg.put("chatID", chat.getId());
-				System.out.println("CLIENT ROOM ID: " + client.getRoomId());
 				server.broadcastToLobby(msg.toString());
 				break;
 			default:
@@ -102,6 +133,23 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 		msg.put("event", "REMOVE PLAYER");
 		msg.put("id", client.getClientId());
 		server.broadcast(msg.toString(), client.getRoomId());
+	}
+
+	public void findChatAndAddMessage(String chatMessage, long chatId){
+		Optional<Chat> optionalChat = chatRoomsRepository.findById(chatId);
+		if(optionalChat.isPresent()){
+			Chat chat = optionalChat.get();
+			if(DEBUG == true)
+			{
+				System.out.println("CHAT BD NAME: " + chat.getName());
+				System.out.println("CHAT BD ROOM ID: " + chat.getId());
+			}
+			chat.addMessage(new ChatMessage(chatMessage));
+			chatRoomsRepository.save(chat);
+		}
+		else{
+			System.out.println("CHAT WITH ID: " + chatId + " NOT FOUND");
+		}
 	}
 }
 

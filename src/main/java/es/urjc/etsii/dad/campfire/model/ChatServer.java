@@ -1,16 +1,14 @@
 package es.urjc.etsii.dad.campfire.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.concurrent.atomic.AtomicInteger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class ChatServer {

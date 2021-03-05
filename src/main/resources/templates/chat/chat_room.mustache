@@ -23,7 +23,13 @@
         <textarea name = 'text' id="textArea" rows=5 cols=40></textarea>
         <input type = 'submit' value='send'/>
     </form>
-    <div id = "chatMessages"></div>
+    <div id = "chatMessages">
+        {{#chat}}
+            {{#chat.messages}}
+                <p>{{text}}</p>
+            {{/chat.messages}}
+        {{/chat}}
+    </div>
     <var id = "username">{{username}}</var>
     
 </body>

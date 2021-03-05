@@ -42,7 +42,6 @@ function createRoom(){
 
 function roomCreated(msg){
     var link = document.createTextNode(msg.text);
-    console.log('link: ' + link);
     var a = document.createElement('a');
     a.appendChild(link);
     a.title = msg.text;
