@@ -1,5 +1,9 @@
 package es.urjc.etsii.dad.campfire.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 //import java.awt.Color;
 
 //import javax.persistence.Entity;
@@ -8,38 +12,30 @@ import javax.persistence.Id;
 //import javax.persistence.OneToOne;
 import javax.persistence.OneToOne;
 
-import org.springframework.web.socket.WebSocketSession;
-
-//@Entity
+@Entity
 public class Avatar {
+    // Primary key
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
     private int primaryColor;
     private int secondaryColor;
     private int eyesColor;
     private int hatId;
     private int accessoryId;
 
-    private WebSocketSession session; // Lo tiene que tener
-    // Primary key
-    @Id
-    int id;
     @OneToOne
     private User user;
 
-    public Avatar(int id, int pColor, int sColor, int eColor, int hatId, int acessoryId) {
-        this.id = id;
+    public Avatar(){}
+    public Avatar(User user, int pColor, int sColor, int eColor, int hatId, int acessoryId) 
+    {
+        this.user = user;
         this.primaryColor = pColor;
         this.secondaryColor = sColor;
         this.eyesColor = eColor;
         this.hatId = hatId;
         this.accessoryId = acessoryId;
-    }
-
-    public WebSocketSession getSession() {
-        return session;
-    }
-
-    public void setSession(WebSocketSession session) {
-        this.session = session;
     }
 
     public int[] getAttributes()
@@ -88,11 +84,11 @@ public class Avatar {
         this.accessoryId = accessoryId;
     }
 
-   //public User getUser() {
-   //    return user;
-   //}
+   public User getUser() {
+       return user;
+   }
 
-   //public void setUser(User user) {
-   //    this.user = user;
-   //}
+   public void setUser(User user) {
+       this.user = user;
+   }
 }

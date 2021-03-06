@@ -1,13 +1,12 @@
 package es.urjc.etsii.dad.campfire.component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Optional;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -15,14 +14,19 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import es.urjc.etsii.dad.campfire.model.Avatar;
+import es.urjc.etsii.dad.campfire.model.User;
+import es.urjc.etsii.dad.campfire.repository.AvatarRepository;
+import es.urjc.etsii.dad.campfire.repository.UserRepository;
 
 public class AvatarSocket extends TextWebSocketHandler {
 
 	private ObjectMapper mapper = new ObjectMapper();
 
-	private List<Avatar> avatars = new ArrayList<Avatar>();
+	@Autowired
+	private UserRepository userRepo;
 
-	private AtomicInteger avatarId = new AtomicInteger(0); 
+	@Autowired
+	private AvatarRepository avatarRepo;
 
 	public AvatarSocket()
 	{
@@ -33,17 +37,20 @@ public class AvatarSocket extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) 
     throws Exception 
     {
-		System.out.println("***********************************************************************" +
-		"**********************************************************");
-		for(String _string : session.getAttributes().keySet())
+		Optional<User> _user = userRepo.findByUsername((String) session.getAttributes().get("username"));
+		Optional<Avatar> _avatarOptional = avatarRepo.findByUser(_user.get());
+		Avatar _avatar;
+		if(_avatarOptional.isPresent())
 		{
-			System.out.println(_string);
+			_avatar = _avatarOptional.get();
+		}
+		else
+		{
+			_avatar = new Avatar(_user.get(), 0, 0, 0, 0, 0);
+			avatarRepo.save(_avatar);
 		}
 		//Llamar a la base de datos -> avatar
-		int id =  avatarId.incrementAndGet();
-		Avatar _avatar = new Avatar(id, 2, 1, 0, 1, 0);
-		_avatar.setSession(session);
-		avatars.add(_avatar);
+
 		ObjectNode msg = mapper.createObjectNode();
 		msg.put("event", "LOAD");
 		int[] _attributes = _avatar.getAttributes();
@@ -51,8 +58,7 @@ public class AvatarSocket extends TextWebSocketHandler {
 		{
 			msg.put("attribute" + i, _attributes[i]);
 		}
-		msg.put("id", id);
-		_avatar.getSession().sendMessage(new TextMessage(msg.toString()));
+		session.sendMessage(new TextMessage(msg.toString()));
 	}
 
 	@Override
@@ -61,19 +67,22 @@ public class AvatarSocket extends TextWebSocketHandler {
     {
 		try {
 			JsonNode node = mapper.readTree(message.getPayload());
-			ObjectNode msg = mapper.createObjectNode();
+			//ObjectNode msg = mapper.createObjectNode();
 			//Avatar _avatar = (Avatar) session.getAttributes().get(PLAYER_ATTRIBUTE);
-			node.get("attributes").asText();
+			//node.get("attributes").asText();
 			switch (node.get("event").asText()) {
 				case "SAVE":
-					int id = msg.get("id").asInt();
-					avatars.get(id).setPrimaryColor(msg.get("attribute0").asInt());
-					avatars.get(id).setSecondaryColor(msg.get("attribute1").asInt());
-					avatars.get(id).setEyesColor(msg.get("attribute2").asInt());
-					avatars.get(id).setHatId(msg.get("attribute3").asInt());
-					avatars.get(id).setAccessoryId(msg.get("attribute4").asInt());
-					System.out.println("ATTRIBUTES -> " + avatars.get(id).getAttributes()[0]);
+					Optional<User> _user = userRepo.findByUsername((String) session.getAttributes().get("username"));
+					Optional<Avatar> _avatarOptional = avatarRepo.findByUser(_user.get());
+					Avatar _avatar = _avatarOptional.get();
+					_avatar.setPrimaryColor(node.get("attribute0").asInt());
+					_avatar.setSecondaryColor(node.get("attribute1").asInt());
+					_avatar.setEyesColor(node.get("attribute2").asInt());
+					_avatar.setHatId(node.get("attribute3").asInt());
+					_avatar.setAccessoryId(node.get("attribute4").asInt());
+
 					//Llamar a la base de datos
+					avatarRepo.save(_avatar);
 					break;
 			}
 

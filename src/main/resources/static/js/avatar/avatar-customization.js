@@ -7,7 +7,6 @@
 */
 
 //SOCKET CALLBACKS
-var id;
 //socket.onopen = () => 
 //{​​
 //    if(DEBUG==true){​​ console.log('[DEBUG] LOBBY WebSocket connection opened.'); }​​
@@ -137,7 +136,6 @@ function saveAvatar()
     msg.attribute2 = attributes[2]
     msg.attribute3 = attributes[3]
     msg.attribute4 = attributes[4]
-    msg.id = id;
     socket.send(JSON.stringify(msg))
 }
 
@@ -169,6 +167,5 @@ socket.onmessage = (message) =>
     attributes[2] = msg.attribute2;
     attributes[3] = msg.attribute3;
     attributes[4] = msg.attribute4;
-    id = msg.id;
     preloadAvatarResources();
 }
