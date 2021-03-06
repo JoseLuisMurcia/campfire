@@ -14,7 +14,7 @@
             background-color: chocolate;
         }
     </style>
-    <h2>Chat Room: {{chat.name}}</h2>
+    <h2>Chat Room {{#chat.name}} {{chat.name}} {{/chat.name}}</h2>
     <var id = "roomid">{{chat.id}}</var>
 </head>
 <body>

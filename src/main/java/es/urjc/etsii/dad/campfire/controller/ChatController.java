@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import es.urjc.etsii.dad.campfire.model.Chat;
-import es.urjc.etsii.dad.campfire.model.ChatMessage;
-import es.urjc.etsii.dad.campfire.repository.ChatMessageRepository;
 import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
 
 @Controller
@@ -27,7 +25,7 @@ public class ChatController {
         List<Chat> chats = chatRepository.findAll();
         model.addAttribute("chats", chats);
         String name = (String)session.getAttribute("username");
-        model.addAttribute("username", "name");
+        model.addAttribute("username", name);
         return "chat/chat_lobby";
     }
 
@@ -38,22 +36,8 @@ public class ChatController {
             model.addAttribute("chat", optionalChat.get());
         }
         String name = (String)session.getAttribute("username");
-        model.addAttribute("username", "name");
+        model.addAttribute("username", name);
         return "chat/chat_room";
     }
-
-
-    @Autowired
-    private ChatMessageRepository chatMessageRepository;
-
-    @GetMapping("/mychats")
-    public String getMyChats(Model model){
-        List<ChatMessage> chatmsgs = chatMessageRepository.findAll();
-        List<Chat> chats = chatRepository.findAll();
-        model.addAttribute("chatmsg", chatmsgs);
-        model.addAttribute("chats", chats);
-        return "chat/test";
-    }
-
 
 }

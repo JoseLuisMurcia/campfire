@@ -39,7 +39,7 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 	@PostConstruct
 	public void init(){
 		if(DEBUG == true){
-			Chat chat = new Chat("FOSHADORES");
+			Chat chat = new Chat("ESTOPA");
 			chat.addMessage(new ChatMessage("POR LA RAJA DE TU FALDA"));
 			chat.addMessage(new ChatMessage("YO TUVE UN PIÑAZO CON UN SEAT PANDA"));
 			chatRoomsRepository.save(chat);
@@ -77,10 +77,7 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 
 				System.out.println("CLIENT CHAT MESSAGE: " + chatMessage);
 				System.out.println("CHAT MESSAGE ROOM ID: " + client.getRoomId());
-
 				findChatAndAddMessage(chatMessage, client.getRoomId());
-
-				
 				msg.put("event", "CLIENT MESSAGE");
 				msg.put("id", client.getClientId());
 				msg.put("text", chatMessage);
