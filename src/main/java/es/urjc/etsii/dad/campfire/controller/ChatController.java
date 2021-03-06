@@ -25,7 +25,7 @@ public class ChatController {
         List<Chat> chats = chatRepository.findAll();
         model.addAttribute("chats", chats);
         String name = (String)session.getAttribute("username");
-        model.addAttribute("username", name);
+        model.addAttribute("userName", name);
         return "chat/chat_lobby";
     }
 
@@ -36,7 +36,7 @@ public class ChatController {
             model.addAttribute("chat", optionalChat.get());
         }
         String name = (String)session.getAttribute("username");
-        model.addAttribute("username", name);
+        model.addAttribute("userName", name);
         return "chat/chat_room";
     }
 
