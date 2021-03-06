@@ -41,7 +41,7 @@ public class LoginController {
         session.setAttribute("username", username);
         if (loginResponse == LoginResponse.SUCCESS) {
             model.addAttribute("username", username);
-            return "logged-in";
+            return "avatar-customization";
         } else {
             return "redirect:/";
         }
