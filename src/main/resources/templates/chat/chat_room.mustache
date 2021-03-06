@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Chat</title>
+    <script src="../../js/chat/chatSocket.js"></script>
+    <meta charset="UTF-8"/>
+    <style>
+        #chatMessages{
+            width:500px;
+            height:200px;
+            border: 2px solid rgb(107, 107, 107);
+            font-family: monospace;
+            overflow-x: hidden;
+            overflow-wrap: break-word;
+            background-color: chocolate;
+        }
+    </style>
+    <h2>Chat Room {{#chat.name}} {{chat.name}} {{/chat.name}}</h2>
+    <var id = "roomid">{{chat.id}}</var>
+</head>
+<body>
+    <form action="" onsubmit="submitFunc();return false">
+        <p>Type your message: </p>
+        <textarea name = 'text' id="textArea" rows=5 cols=40></textarea>
+        <input type = 'submit' value='send'/>
+    </form>
+    <div id = "chatMessages">
+        {{#chat}}
+            {{#chat.messages}}
+                <p>{{text}}</p>
+            {{/chat.messages}}
+        {{/chat}}
+    </div>
+    <var id = "username">{{username}}</var>
+    
+</body>
+</html>
