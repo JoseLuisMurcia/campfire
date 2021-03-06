@@ -36,10 +36,9 @@ public class LoginController {
     }
 
     @PostMapping("login-done")
-    public String loginDone(Model model, String username, String password, HttpSession _session) {
+    public String loginDone(Model model, String username, String password, HttpSession session) {
         LoginResponse loginResponse = loginService.loginUser(new User(username, password));
-        _session.setAttribute("username", username);
-        System.out.println(_session.getAttribute("username"));
+        session.setAttribute("username", username);
         if (loginResponse == LoginResponse.SUCCESS) {
             model.addAttribute("username", username);
             return "avatar-customization";

@@ -10,9 +10,16 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import es.urjc.etsii.dad.campfire.component.AvatarSocket;
 
-@SpringBootApplication
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+import es.urjc.etsii.dad.campfire.service.WebsocketChatHandler;
+
 @EnableWebSocket
-public class CampfireApplication implements WebSocketConfigurer {
+@SpringBootApplication
+public class CampfireApplication implements WebSocketConfigurer{
 
 	public static void main(String[] args) {
 		SpringApplication.run(CampfireApplication.class, args);
@@ -23,7 +30,7 @@ public class CampfireApplication implements WebSocketConfigurer {
 	{
 		registry.addHandler(avatarHandler(), "/avatar-customization")
 		.addInterceptors(new HttpSessionHandshakeInterceptor());
-
+    registry.addHandler(chatHandler(), "/chat");
 	}
 
 	@Bean
@@ -31,4 +38,9 @@ public class CampfireApplication implements WebSocketConfigurer {
 	{
 		return new AvatarSocket();
 	}
+	@Bean
+	public WebsocketChatHandler chatHandler() {
+		return new WebsocketChatHandler();
+	}
 }
+
