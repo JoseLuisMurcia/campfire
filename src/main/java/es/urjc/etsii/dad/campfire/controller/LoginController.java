@@ -35,13 +35,13 @@ public class LoginController {
         }
     }
 
-    @PostMapping("login-done")
+    @PostMapping("home")
     public String loginDone(Model model, String username, String password, HttpSession session) {
         LoginResponse loginResponse = loginService.loginUser(new User(username, password));
         session.setAttribute("username", username);
         if (loginResponse == LoginResponse.SUCCESS) {
             model.addAttribute("username", username);
-            return "avatar-customization";
+            return "home/home";
         } else {
             return "redirect:/";
         }
