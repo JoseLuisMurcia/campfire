@@ -9,7 +9,12 @@
 </head>
 
 <body>
-    <form action="public-post"></form>
+    <form action="publish-post" method="POST">
+        <textarea name="message" cols="40" rows="5"></textarea>
+        <p>¿Mensaje anónimo?</p>
+        <input type="checkbox" name="isAnonymous">
+        <input type="submit" value="Publicar">
+    </form>
 </body>
 
 </html>
