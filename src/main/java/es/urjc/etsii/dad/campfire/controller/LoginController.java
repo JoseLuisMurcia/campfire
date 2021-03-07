@@ -47,4 +47,10 @@ public class LoginController {
         }
     }
 
+    @GetMapping("log-out")
+    public String logOut(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
 }
