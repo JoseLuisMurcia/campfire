@@ -31,11 +31,20 @@ body {
     position: absolute;
     margin: 7% 0 0 5%;
 
-    .slogan {
+    .public-post-msg {
         margin: 0;
         padding: 3% 0 0 0;
-        font-size: 5em;
+        font-size: 4em;
         font-weight: 600;
+        color: $font-color;
+        user-select: none;
+    }
+
+    .public-post-owner {
+        margin: 0;
+        padding: 3% 0 0 0;
+        font-size: 2em;
+        font-weight: 400;
         color: $font-color;
         user-select: none;
     }

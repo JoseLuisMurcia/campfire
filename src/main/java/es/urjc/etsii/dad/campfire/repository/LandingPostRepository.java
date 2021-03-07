@@ -9,7 +9,7 @@ import es.urjc.etsii.dad.campfire.model.LandingPost;
 
 public interface LandingPostRepository extends JpaRepository<LandingPost, Long> {
 
-    @Query(value = "SELECT * FROM LandingPost ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Landing_Post ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Optional<LandingPost> getRandomLandingPost();
 
 }

@@ -13,39 +13,40 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Chat {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ChatMessage> messages = new ArrayList<>();
 
-    protected Chat(){}
+    protected Chat() {
+    }
 
-    public Chat(String name){
+    public Chat(String name) {
         this.name = name;
     }
-    
-    public Long getId(){
+
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public void addMessage(ChatMessage message){
+    public void addMessage(ChatMessage message) {
         messages.add(message);
     }
 

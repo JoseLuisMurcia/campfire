@@ -1,17 +1,23 @@
 package es.urjc.etsii.dad.campfire.model;
 
+import javax.annotation.Generated;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class LandingPost {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String post;
     private boolean isAnonymous;
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User owner;
 
     protected LandingPost() {
