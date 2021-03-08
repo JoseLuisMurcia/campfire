@@ -54,3 +54,12 @@ Se trata de la página en la que el usuario es capaz de crear salas de chat y un
 ### Chat
 ![CHATROOM](https://user-images.githubusercontent.com/38223068/110368084-d4230e80-8048-11eb-8fc6-5af4874f9120.PNG)
 Es la página en la que los usuarios pueden enviarse mensaje entre ellos siempre que estén dentro de la misma sala. Hay un campo para introducir texto que permite la creación de mensajes, al enviarlos son recibidos por el resto de usuarios de esa sala y se indica el nombre del usuario que ha mandado el mensaje. Desde esta pantalla se puede retornar a la pantalla de Chat Lobby.
+
+## Diagrama de navegación
+![FlujoCampfire](https://user-images.githubusercontent.com/38223068/110373187-8067f380-804f-11eb-9f20-0d1cccedd57a.png)
+
+## Modelo de datos
+### Diagrama de clases UML
+![CampfireEntityRelation](https://user-images.githubusercontent.com/38223068/110373395-bc02bd80-804f-11eb-9274-b9f7b2eb77a9.png)
+
+### Diagrama Entidad/Relación
