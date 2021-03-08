@@ -1,9 +1,39 @@
+:root 
+{
+    --topDist: 20px;
+    --leftDist: 100px;
+}
 body
 {
     margin : 0;
+    background-color: coral;
 }
-/*
-.primary-image
+img
 {
-    filter: invert(93%) sepia(10%) saturate(1907%) hue-rotate(88deg) brightness(104%) contrast(101%);
-}*/
+    margin : 0;
+}
+#PColorDisplay
+{
+    position: absolute;
+    top: var(--topDist); left: var(--leftDist);
+}
+#SColorDisplay
+{
+    position: absolute;
+    top: var(--topDist); left: var(--leftDist);
+}
+#EyesDisplay
+{
+    position: absolute;
+    top: var(--topDist); left: var(--leftDist);
+}
+#HatDisplay
+{
+    position: absolute;
+    top: var(--topDist); left: var(--leftDist);
+}
+#AccessoryDisplay
+{
+    position: absolute;
+    top: var(--topDist); left: var(--leftDist);
+}
