@@ -42,8 +42,7 @@ function submitFunc()
 {
 	let textValue = document.getElementById("textArea").value;
 	if(textValue == '') return;
-	let playerName = document.getElementById("username").innerText;
-	let playerText = playerName + ": "+ textValue;
+	let playerText = textValue;
 	document.getElementById("textArea").value = '';
 	let message = {
 		event: 'CHAT MESSAGE',
@@ -72,8 +71,8 @@ function removePlayerMsg(msg) {
     console.dir(msg.players)
 
 	var tag = document.createElement("p");
-	var playerName = document.getElementById("username").innerText;
-	var playerText = "user " + playerName + " left the chat"
+	var playerName = msg.exitinguser;
+	var playerText = playerName + " left the chat"
    	var text = document.createTextNode(playerText);
    	tag.appendChild(text);
    	var element = document.getElementById("chatMessages");
@@ -102,7 +101,7 @@ function playerJoined(msg){ //Called when a user joins the chat, updates the cha
 	}
 
 	var tag = document.createElement("p");
-	var playerName = document.getElementById("username").innerText;
+	var playerName = msg.enteringuser;
 	var playerText = playerName + " joined the chat"
    	var text = document.createTextNode(playerText);
    	tag.appendChild(text);

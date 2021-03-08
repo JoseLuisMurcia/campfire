@@ -23,7 +23,8 @@ public class CampfireApplication implements WebSocketConfigurer {
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(avatarHandler(), "/avatar-customization")
 				.addInterceptors(new HttpSessionHandshakeInterceptor());
-		registry.addHandler(chatHandler(), "/chat");
+		registry.addHandler(chatHandler(), "/chat")
+				.addInterceptors(new HttpSessionHandshakeInterceptor());
 	}
 
 	@Bean
