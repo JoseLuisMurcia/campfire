@@ -1,30 +1,39 @@
+:root 
+{
+    --topDist: 20px;
+    --leftDist: 100px;
+}
 body
 {
     margin : 0;
     background-color: coral;
 }
+img
+{
+    margin : 0;
+}
 #PColorDisplay
 {
     position: absolute;
-    top: 300px; left: 300px;
+    top: var(--topDist); left: var(--leftDist);
 }
 #SColorDisplay
 {
     position: absolute;
-    top: 300px; left: 300px;
+    top: var(--topDist); left: var(--leftDist);
 }
 #EyesDisplay
 {
     position: absolute;
-    top: 300px; left: 300px;
+    top: var(--topDist); left: var(--leftDist);
 }
 #HatDisplay
 {
     position: absolute;
-    top: 300px; left: 300px;
+    top: var(--topDist); left: var(--leftDist);
 }
 #AccessoryDisplay
 {
     position: absolute;
-    top: 300px; left: 300px;
+    top: var(--topDist); left: var(--leftDist);
 }
