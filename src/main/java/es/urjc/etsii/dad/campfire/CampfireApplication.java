@@ -10,11 +10,6 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import es.urjc.etsii.dad.campfire.component.AvatarSocket;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
-
 import es.urjc.etsii.dad.campfire.service.WebsocketChatHandler;
 
 @EnableWebSocket
