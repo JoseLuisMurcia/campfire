@@ -24,11 +24,23 @@ body {
   margin: 7% 0 0 5%;
 }
 
-.left-col .slogan {
+.left-col .public-post-msg {
   margin: 0;
   padding: 3% 0 0 0;
-  font-size: 5em;
+  font-size: 4em;
   font-weight: 600;
+  color: #0D1F2D;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.left-col .public-post-owner {
+  margin: 0;
+  padding: 3% 0 0 0;
+  font-size: 2em;
+  font-weight: 400;
   color: #0D1F2D;
   -webkit-user-select: none;
      -moz-user-select: none;
