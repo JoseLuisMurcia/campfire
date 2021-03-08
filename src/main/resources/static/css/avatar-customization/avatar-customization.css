@@ -1,9 +1,30 @@
 body
 {
     margin : 0;
+    background-color: coral;
 }
-/*
-.primary-image
+#PColorDisplay
 {
-    filter: invert(93%) sepia(10%) saturate(1907%) hue-rotate(88deg) brightness(104%) contrast(101%);
-}*/
+    position: absolute;
+    top: 300px; left: 300px;
+}
+#SColorDisplay
+{
+    position: absolute;
+    top: 300px; left: 300px;
+}
+#EyesDisplay
+{
+    position: absolute;
+    top: 300px; left: 300px;
+}
+#HatDisplay
+{
+    position: absolute;
+    top: 300px; left: 300px;
+}
+#AccessoryDisplay
+{
+    position: absolute;
+    top: 300px; left: 300px;
+}
