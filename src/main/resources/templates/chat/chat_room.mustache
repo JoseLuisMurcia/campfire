@@ -14,7 +14,7 @@
             background-color: rgb(252, 244, 217);
         }
     </style>
-    <h2>Chat Room {{#chat.name}} {{chat.name}} {{/chat.name}}</h2>
+    <h2>Chat Room - {{#chat.name}} {{chat.name}} {{/chat.name}}</h2>
 </head>
 <body>
     <form action="" onsubmit="submitFunc();return false">
@@ -29,6 +29,7 @@
             {{/chat.messages}}
         {{/chat}}
     </div>
-    
+    <a href="/chat_lobby">Back to lobby</a>
+    <var hidden id="roomid">{{chat.id}}</var>
 </body>
 </html>

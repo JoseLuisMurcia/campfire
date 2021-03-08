@@ -21,17 +21,15 @@ public class ChatServer {
 	private Map<String, ChatClient> chatClients = new ConcurrentHashMap<>();
 	private Map<String, ChatClient> lobbyClients = new ConcurrentHashMap<>();
 	private AtomicInteger numclients = new AtomicInteger();
-	
+
 	public void addChatClient(ChatClient client) {
 		chatClients.put(client.getSession().getId(), client);
-
-		int count = numclients.getAndIncrement();
+		numclients.getAndIncrement();
 	}
 
 	public void addLobbyClient(ChatClient client) {
 		lobbyClients.put(client.getSession().getId(), client);
-
-		int count = numclients.getAndIncrement();
+		numclients.getAndIncrement();
 	}
 
 	public Collection<ChatClient> getChatClients() {
@@ -44,21 +42,19 @@ public class ChatServer {
 
 	public void removeChatClient(ChatClient client) {
 		chatClients.remove(client.getSession().getId());
-
-		int count = this.numclients.decrementAndGet();
+		this.numclients.decrementAndGet();
 	}
 
 	public void removeLobbyClient(ChatClient client) {
 		lobbyClients.remove(client.getSession().getId());
-
-		int count = this.numclients.decrementAndGet();
+		this.numclients.decrementAndGet();
 	}
-
 
 	public void broadcast(String message, int roomId) {
 		for (ChatClient client : getChatClients()) {
 			try {
-				if(client.getRoomId() == roomId)client.getSession().sendMessage(new TextMessage(message.toString()));
+				if (client.getRoomId() == roomId)
+					client.getSession().sendMessage(new TextMessage(message.toString()));
 			} catch (Throwable ex) {
 				System.err.println("Exception sending message to client " + client.getSession().getId());
 				ex.printStackTrace(System.err);
@@ -67,17 +63,6 @@ public class ChatServer {
 		}
 	}
 
-	public void broadcast(String message) {
-		for (ChatClient client : getChatClients()) {
-			try {
-				client.getSession().sendMessage(new TextMessage(message.toString()));
-			} catch (Throwable ex) {
-				System.err.println("Exception sending message to client " + client.getSession().getId());
-				ex.printStackTrace(System.err);
-				this.removeChatClient(client);
-			}
-		}
-	}
 
 	public void broadcastToLobby(String message) {
 		for (ChatClient client : getLobbyClients()) {
