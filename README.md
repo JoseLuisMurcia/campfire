@@ -24,3 +24,26 @@ Además, los usuarios registrados tendrán la posibilidad de difundir mensajes a
 
 ## Trello
 https://trello.com/b/X43atRfn/campfire
+
+## Páginas
+
+### Log In
+![INI](https://user-images.githubusercontent.com/38223068/110367837-7b537600-8048-11eb-9ce4-99f4d85c46da.PNG)
+
+### Register
+![REGISTER](https://user-images.githubusercontent.com/38223068/110367869-86a6a180-8048-11eb-9e3a-0cd4c3ce646e.PNG)
+
+### Home
+![HOME](https://user-images.githubusercontent.com/38223068/110367970-ae960500-8048-11eb-9dbf-b6a100a08f39.PNG)
+
+### Public Post
+![PUBLIC POST](https://user-images.githubusercontent.com/38223068/110368242-10ef0580-8049-11eb-9bc4-afb3c074c584.PNG)
+
+### Avatar
+![MicrosoftTeams-image (2)](https://user-images.githubusercontent.com/38223068/110368392-44319480-8049-11eb-8d31-150c3ae1c58f.png)
+
+### Lobby
+![CHATLOBBY](https://user-images.githubusercontent.com/38223068/110368041-c7061f80-8048-11eb-8195-520e7c6fc619.PNG)
+
+### Chat
+![CHATROOM](https://user-images.githubusercontent.com/38223068/110368084-d4230e80-8048-11eb-8fc6-5af4874f9120.PNG)
