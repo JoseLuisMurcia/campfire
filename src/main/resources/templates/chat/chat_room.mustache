@@ -15,7 +15,6 @@
         }
     </style>
     <h2>Chat Room {{#chat.name}} {{chat.name}} {{/chat.name}}</h2>
-    <var id = "roomid">{{chat.id}}</var>
 </head>
 <body>
     <form action="" onsubmit="submitFunc();return false">
@@ -26,11 +25,10 @@
     <div id = "chatMessages">
         {{#chat}}
             {{#chat.messages}}
-                <p>{{text}}</p>
+                <p>{{user.username}}: {{text}}</p>
             {{/chat.messages}}
         {{/chat}}
     </div>
-    <var id = "username">{{userName}}</var>
     
 </body>
 </html>

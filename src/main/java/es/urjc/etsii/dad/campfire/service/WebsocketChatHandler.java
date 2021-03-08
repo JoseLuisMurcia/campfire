@@ -15,7 +15,9 @@ import es.urjc.etsii.dad.campfire.model.Chat;
 import es.urjc.etsii.dad.campfire.model.ChatClient;
 import es.urjc.etsii.dad.campfire.model.ChatMessage;
 import es.urjc.etsii.dad.campfire.model.ChatServer;
+import es.urjc.etsii.dad.campfire.model.User;
 import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
+import es.urjc.etsii.dad.campfire.repository.UserRepository;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,22 +31,15 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 	@Autowired
 	private ChatRoomsRepository chatRoomsRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	private static final int LOBBY_ID = -3;
 	private static final String CLIENT_ATTRIBUTE = "CLIENT";
 	private ObjectMapper mapper = new ObjectMapper();
 	private AtomicInteger clientId = new AtomicInteger(0);
 
 	private boolean DEBUG = false;
-
-	@PostConstruct
-	public void init(){
-		if(DEBUG == true){
-			Chat chat = new Chat("ESTOPA");
-			chat.addMessage(new ChatMessage("POR LA RAJA DE TU FALDA"));
-			chat.addMessage(new ChatMessage("YO TUVE UN PIÑAZO CON UN SEAT PANDA"));
-			chatRoomsRepository.save(chat);
-		}
-	}
 	
 
 	@Override
@@ -74,18 +69,19 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 				break;
 			case "CHAT MESSAGE":
 				String chatMessage = node.get("text").asText();
-
+				String messageOwner = session.getAttributes().get("username").toString();
 				System.out.println("CLIENT CHAT MESSAGE: " + chatMessage);
 				System.out.println("CHAT MESSAGE ROOM ID: " + client.getRoomId());
-				findChatAndAddMessage(chatMessage, client.getRoomId());
+				findChatAndAddMessage(chatMessage, client.getRoomId(), messageOwner);
 				msg.put("event", "CLIENT MESSAGE");
 				msg.put("id", client.getClientId());
-				msg.put("text", chatMessage);
+				msg.put("text", messageOwner + ": " + chatMessage);
 				server.broadcast(msg.toString(), client.getRoomId());
 				break;
 			case "PLAYER JOINED":
 				msg.put("event", "CHAT JOIN");
 				msg.put("id", client.getClientId());
+				msg.put("enteringuser", session.getAttributes().get("username").toString());
 				server.broadcast(msg.toString(), client.getRoomId());
 				break;
 			case "LOBBY JOIN":
@@ -129,11 +125,13 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 		ObjectNode msg = mapper.createObjectNode();
 		msg.put("event", "REMOVE PLAYER");
 		msg.put("id", client.getClientId());
+		msg.put("exitinguser", session.getAttributes().get("username").toString());
 		server.broadcast(msg.toString(), client.getRoomId());
 	}
 
-	public void findChatAndAddMessage(String chatMessage, long chatId){
+	public void findChatAndAddMessage(String chatMessage, long chatId, String userName){
 		Optional<Chat> optionalChat = chatRoomsRepository.findById(chatId);
+		User messageOwner = userRepository.findByUsername(userName).get();
 		if(optionalChat.isPresent()){
 			Chat chat = optionalChat.get();
 			if(DEBUG == true)
@@ -141,7 +139,7 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 				System.out.println("CHAT BD NAME: " + chat.getName());
 				System.out.println("CHAT BD ROOM ID: " + chat.getId());
 			}
-			chat.addMessage(new ChatMessage(chatMessage));
+			chat.addMessage(new ChatMessage(chatMessage,messageOwner));
 			chatRoomsRepository.save(chat);
 		}
 		else{
