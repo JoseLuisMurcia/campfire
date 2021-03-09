@@ -1,5 +1,9 @@
 package es.urjc.etsii.dad.campfire.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -7,8 +11,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
+
+import es.urjc.etsii.dad.campfire.service.FriendListService;
 
 @Component
 public class ChatServer {
@@ -21,6 +28,9 @@ public class ChatServer {
 	private Map<String, ChatClient> chatClients = new ConcurrentHashMap<>();
 	private Map<String, ChatClient> lobbyClients = new ConcurrentHashMap<>();
 	private AtomicInteger numclients = new AtomicInteger();
+
+	@Autowired
+	private FriendListService friendService;
 
 	public void addChatClient(ChatClient client) {
 		chatClients.put(client.getSession().getId(), client);
@@ -63,6 +73,29 @@ public class ChatServer {
 		}
 	}
 
+	public void broadcastWithFriendInfo(String msgOwner, ObjectNode msg, int roomId) {
+		for (ChatClient client : getChatClients()) {
+			try {
+				if (client.getRoomId() == roomId) {
+					String clientUsername = client.getSession().getAttributes().get("username").toString();
+
+					if (msgOwner.equals(clientUsername)) {
+						msg.put("isFriend", "self");
+					} else if (friendService.checkFriendship(clientUsername, msgOwner)) {
+						msg.put("isFriend", "friend");
+					} else {
+						msg.put("isFriend", "none");
+					}
+
+					client.getSession().sendMessage(new TextMessage(msg.toString()));
+				}
+			} catch (Throwable ex) {
+				System.err.println("Exception sending message to client " + client.getSession().getId());
+				ex.printStackTrace(System.err);
+				this.removeChatClient(client);
+			}
+		}
+	}
 
 	public void broadcastToLobby(String message) {
 		for (ChatClient client : getLobbyClients()) {
