@@ -16,10 +16,24 @@
         {{/friendList}}
     </div>
 
-    <form action="send-friend-request">
-        <input type="text" name="username">
+    <form action="send-friend-request" method="POST">
+        <input type="text" name="friendRequest">
         <input type="submit" value="Send Friend Request">
     </form>
+
+    <h1>Friend Requests</h1>
+    {{#friendRequests}}
+    <form action="resolve-friend-request" method="POST">
+        <div>
+            <label><input type="hidden" name="friendRequest" value="{{username}}">{{username}}</label>
+            <input type="submit" name="resolve" value="accept">
+            <input type="submit" name="resolve" value="decline">
+        </div>
+    </form>
+    {{/friendRequests}}
+
+    <br>
+    <a href="/home">Back to home</a>
 </body>
 
 </html>
