@@ -7,7 +7,7 @@ El funcionamiento principal de **Campfire** se basa en el uso de **hogueras** qu
 Además, los usuarios registrados tendrán la posibilidad de difundir mensajes anónimos que se mostrarán a cualquier persona que acceda a la página principal de **Campfire**, esté registrada o no.
 
 ## Entidades principales
-- Usuario: Almacena la información de registro.
+- Usuario: almacena la información de registro y de la lista de amigos.
 - Avatar: Simboliza la información de customización del avatar de cada usuario.
 - Post: Representa un mensaje público que se mostrará en la página principal.
 - Hoguera: Representa una sala privada en la que un grupo de usuarios podrán conversar.
@@ -41,6 +41,16 @@ En la página de Register, el usuario podrá crear una nueva cuenta dando el nic
 <br/>
 En la página Home se le da al usuario las opciones de entrar a las 3 pantallas que se explican a continuación. Además, el usuario podrá hacer log-out, lo que le llevará a la pantalla de Log In.
 
+### Friend List
+![FriendList_screenshot](https://user-images.githubusercontent.com/49962993/110463190-e301d380-80d1-11eb-9bdd-09ca0d04c078.png)
+<br/>
+En esta pantalla los usuarios podrán visualizar su lista de amigos actual. También podrán enviar peticiones de amistad a otros usuarios que todavía no sean sus amigos introduciendo su nombre de usuario. Por último, se muestran las peticiones de amistad pendientes. Para cada una, se presenta el nombre de usuario de la petición entrante y la posibilidad de aceptar o rechazar la petición. Si la petición es rechazada, simplemente se eliminará de la lista. Si por el contrario es aceptada, a partir de ese momento ambos usuarios involucrados incluirán al otro en su lista de amigos.
+
+### Friend Request
+![FriendRequest_screenshot](https://user-images.githubusercontent.com/49962993/110463202-e5642d80-80d1-11eb-9bc4-fb28ee1e0572.png)
+<br/>
+En esta página se muestra el resultado del envío de la petición de amistad. Si el nombre de usuario introducido existe y todavía no es amigo del usuario que envía la petición, se enviará pues dicha petición de amistad. En cambio, si el usuario no existe, ya es amigo nuestro, tiene una petición nuestra pendiente o nos intentamos mandar una invitación a nosotros mismos, la página nos informará de que no ha sido posible enviar la petición.
+
 ### Public Post
 ![PUBLIC POST](https://user-images.githubusercontent.com/38223068/110368242-10ef0580-8049-11eb-9bc4-afb3c074c584.PNG)
 <br/>
@@ -59,15 +69,15 @@ Se trata de la página en la que el usuario es capaz de crear salas de chat y un
 ### Chat
 ![CHATROOM](https://user-images.githubusercontent.com/38223068/110368084-d4230e80-8048-11eb-8fc6-5af4874f9120.PNG)
 <br/>
-Es la página en la que los usuarios pueden enviarse mensaje entre ellos siempre que estén dentro de la misma sala. Hay un campo para introducir texto que permite la creación de mensajes, al enviarlos son recibidos por el resto de usuarios de esa sala y se indica el nombre del usuario que ha mandado el mensaje. Desde esta pantalla se puede retornar a la pantalla de Chat Lobby.
+Es la página en la que los usuarios pueden enviarse mensaje entre ellos siempre que estén dentro de la misma sala. Hay un campo para introducir texto que permite la creación de mensajes, al enviarlos son recibidos por el resto de usuarios de esa sala y se indica el nombre del usuario que ha mandado el mensaje. Desde esta pantalla se puede retornar a la pantalla de Chat Lobby. Además, durante la estancia de un usuario en la sala, sus propios mensajes enviados aparecerán en azul y los de sus amigos en rojo. Los mensajes de usuarios que no estén en su lista de amigos aparecerán en negro.
 
 ## Diagrama de navegación
-![FlujoCampfire](https://user-images.githubusercontent.com/38223068/110373187-8067f380-804f-11eb-9f20-0d1cccedd57a.png)
+![FlujoCampfire_2](https://user-images.githubusercontent.com/49962993/110462849-7f77a600-80d1-11eb-9567-1f7d82b1409e.png)
 
 ## Modelo de datos
 ### Diagrama de clases UML
-![CampfireUML](https://user-images.githubusercontent.com/38223068/110375256-071dd000-8052-11eb-81b5-b66bb0d5de21.png)
+![CampfireUML_2](https://user-images.githubusercontent.com/49962993/110462880-8999a480-80d1-11eb-8ee6-cafaa9e1e9ad.png)
 
 ### Diagrama Entidad/Relación
-![CampfireEntityRelation](https://user-images.githubusercontent.com/38223068/110375274-0dac4780-8052-11eb-9af8-21fd448074fc.png)
+![CampfireEntityRelation_2](https://user-images.githubusercontent.com/49962993/110462909-928a7600-80d1-11eb-97d6-5c296e3e3cfc.png)
 
