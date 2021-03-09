@@ -3,7 +3,9 @@ package es.urjc.etsii.dad.campfire.service;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.PostConstruct;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
@@ -18,10 +20,6 @@ import es.urjc.etsii.dad.campfire.model.ChatServer;
 import es.urjc.etsii.dad.campfire.model.User;
 import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
 import es.urjc.etsii.dad.campfire.repository.UserRepository;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class WebsocketChatHandler extends TextWebSocketHandler {
 
@@ -40,14 +38,13 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 	private AtomicInteger clientId = new AtomicInteger(0);
 
 	private boolean DEBUG = false;
-	
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		ChatClient client = new ChatClient(clientId.incrementAndGet(), session);
 		session.getAttributes().put(CLIENT_ATTRIBUTE, client);
 		ObjectNode msg = mapper.createObjectNode();
-		
+
 		msg.put("event", "JOIN");
 		msg.put("id", client.getClientId());
 		client.getSession().sendMessage(new TextMessage(msg.toString()));
@@ -76,7 +73,8 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 				msg.put("event", "CLIENT MESSAGE");
 				msg.put("id", client.getClientId());
 				msg.put("text", messageOwner + ": " + chatMessage);
-				server.broadcast(msg.toString(), client.getRoomId());
+				// server.broadcast(msg.toString(), client.getRoomId());
+				server.broadcastWithFriendInfo(messageOwner, msg, client.getRoomId());
 				break;
 			case "PLAYER JOINED":
 				msg.put("event", "CHAT JOIN");
@@ -92,16 +90,15 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 				String chatName = node.get("text").asText();
 				Chat chat = new Chat(chatName);
 				chatRoomsRepository.save(chat);
-				if(DEBUG==true){
-					Optional<Chat> optionalChat = chatRoomsRepository.findById((long)chat.getId());
+				if (DEBUG == true) {
+					Optional<Chat> optionalChat = chatRoomsRepository.findById((long) chat.getId());
 					System.out.println("OPTIONALCHAT isPresent: " + optionalChat.isPresent());
-					if(optionalChat.isPresent())
-					{
+					if (optionalChat.isPresent()) {
 						System.out.println("CHAT OBJECT: " + optionalChat.get());
 						System.out.println("CHAT ID: " + optionalChat.get().getId());
 					}
 				}
-				msg.put("event","ROOM CREATED");
+				msg.put("event", "ROOM CREATED");
 				msg.put("text", chatName);
 				msg.put("chatID", chat.getId());
 				server.broadcastToLobby(msg.toString());
@@ -119,8 +116,11 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		ChatClient client = (ChatClient) session.getAttributes().get(CLIENT_ATTRIBUTE);
-		if(client.getRoomId() == LOBBY_ID) server.removeLobbyClient(client);
-		else { server.removeChatClient(client); }
+		if (client.getRoomId() == LOBBY_ID)
+			server.removeLobbyClient(client);
+		else {
+			server.removeChatClient(client);
+		}
 
 		ObjectNode msg = mapper.createObjectNode();
 		msg.put("event", "REMOVE PLAYER");
@@ -129,22 +129,19 @@ public class WebsocketChatHandler extends TextWebSocketHandler {
 		server.broadcast(msg.toString(), client.getRoomId());
 	}
 
-	public void findChatAndAddMessage(String chatMessage, long chatId, String userName){
+	public void findChatAndAddMessage(String chatMessage, long chatId, String userName) {
 		Optional<Chat> optionalChat = chatRoomsRepository.findById(chatId);
 		User messageOwner = userRepository.findByUsername(userName).get();
-		if(optionalChat.isPresent()){
+		if (optionalChat.isPresent()) {
 			Chat chat = optionalChat.get();
-			if(DEBUG == true)
-			{
+			if (DEBUG == true) {
 				System.out.println("CHAT BD NAME: " + chat.getName());
 				System.out.println("CHAT BD ROOM ID: " + chat.getId());
 			}
-			chat.addMessage(new ChatMessage(chatMessage,messageOwner));
+			chat.addMessage(new ChatMessage(chatMessage, messageOwner));
 			chatRoomsRepository.save(chat);
-		}
-		else{
+		} else {
 			System.out.println("CHAT WITH ID: " + chatId + " NOT FOUND");
 		}
 	}
 }
-
