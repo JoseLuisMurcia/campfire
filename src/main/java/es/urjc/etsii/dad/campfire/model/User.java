@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ public class User {
     private String username;
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     List<User> friends = new ArrayList<User>();
     @ManyToMany
     List<User> friendRequests = new ArrayList<User>();
@@ -75,4 +76,9 @@ public class User {
         this.friendRequests = friendRequests;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        User other = (User) obj;
+        return getId() == other.getId();
+    }
 }

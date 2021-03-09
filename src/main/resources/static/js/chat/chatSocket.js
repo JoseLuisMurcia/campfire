@@ -88,6 +88,14 @@ function updateChat(msg){ //appends the message and the user who sent it
 	var tag = document.createElement("p");
    	var text = document.createTextNode(msg.text);
    	tag.appendChild(text);
+	   
+	if(msg.isFriend == 'self'){
+		tag.style.color = "#0000FF";
+	}
+	if(msg.isFriend == 'friend'){
+		tag.style.color = "#FF0000";
+	}
+
    	var element = document.getElementById("chatMessages");
    	element.appendChild(tag); 
 }

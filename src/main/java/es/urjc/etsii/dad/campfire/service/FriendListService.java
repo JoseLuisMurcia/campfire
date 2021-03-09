@@ -68,4 +68,16 @@ public class FriendListService {
         userRepo.save(user);
         userRepo.save(fromUser);
     }
+
+    public boolean checkFriendship(String usernameA, String usernameB) {
+        User userA = userRepo.findByUsername(usernameA).get();
+        User userB = userRepo.findByUsername(usernameB).get();
+
+        System.out.println(userA.getFriends());
+        System.out.println(userB.getFriends());
+
+        boolean result = userA.getFriends().contains(userB);
+        System.out.println(result);
+        return result;
+    }
 }
