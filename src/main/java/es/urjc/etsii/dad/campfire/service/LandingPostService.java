@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import es.urjc.etsii.dad.campfire.model.LandingPost;
-import es.urjc.etsii.dad.campfire.model.User;
+import es.urjc.etsii.dad.campfire.entity.LandingPost;
+import es.urjc.etsii.dad.campfire.entity.User;
 import es.urjc.etsii.dad.campfire.repository.LandingPostRepository;
 import es.urjc.etsii.dad.campfire.repository.UserRepository;
 

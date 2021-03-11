@@ -1,6 +1,5 @@
-package es.urjc.etsii.dad.campfire.model;
+package es.urjc.etsii.dad.campfire.entity;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

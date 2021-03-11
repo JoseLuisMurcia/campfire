@@ -1,8 +1,4 @@
-package es.urjc.etsii.dad.campfire.model;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+package es.urjc.etsii.dad.campfire.service;
 
 import java.util.Collection;
 import java.util.Map;
@@ -10,14 +6,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 
-import es.urjc.etsii.dad.campfire.service.FriendListService;
+import es.urjc.etsii.dad.campfire.model.ChatClient;
 
-@Component
+@Service
 public class ChatServer {
 
 	public final static boolean DEBUG_MODE = true;

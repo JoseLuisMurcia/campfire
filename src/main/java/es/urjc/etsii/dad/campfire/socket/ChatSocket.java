@@ -1,4 +1,4 @@
-package es.urjc.etsii.dad.campfire.service;
+package es.urjc.etsii.dad.campfire.socket;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,15 +13,15 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import es.urjc.etsii.dad.campfire.model.Chat;
+import es.urjc.etsii.dad.campfire.service.ChatServer;
+import es.urjc.etsii.dad.campfire.entity.Chat;
 import es.urjc.etsii.dad.campfire.model.ChatClient;
-import es.urjc.etsii.dad.campfire.model.ChatMessage;
-import es.urjc.etsii.dad.campfire.model.ChatServer;
-import es.urjc.etsii.dad.campfire.model.User;
+import es.urjc.etsii.dad.campfire.entity.ChatMessage;
+import es.urjc.etsii.dad.campfire.entity.User;
 import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
 import es.urjc.etsii.dad.campfire.repository.UserRepository;
 
-public class WebsocketChatHandler extends TextWebSocketHandler {
+public class ChatSocket extends TextWebSocketHandler {
 
 	@Autowired
 	private ChatServer server;

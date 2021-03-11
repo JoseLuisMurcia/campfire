@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import es.urjc.etsii.dad.campfire.model.User;
+import es.urjc.etsii.dad.campfire.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

@@ -1,5 +1,4 @@
 const socket = new WebSocket("ws://127.0.0.1:8080/chat");
-//	box = document.getElementById('chatMessages');
 let roomId;
 
 var id=-1;

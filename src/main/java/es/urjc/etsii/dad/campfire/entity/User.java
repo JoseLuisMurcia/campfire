@@ -1,4 +1,4 @@
-package es.urjc.etsii.dad.campfire.model;
+package es.urjc.etsii.dad.campfire.entity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.urjc.etsii.dad.campfire.model.User;
+import es.urjc.etsii.dad.campfire.entity.User;
 import es.urjc.etsii.dad.campfire.repository.UserRepository;
 import es.urjc.etsii.dad.campfire.service.FriendListService;
 import es.urjc.etsii.dad.campfire.service.FriendRequestResponse;

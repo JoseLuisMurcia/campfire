@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import es.urjc.etsii.dad.campfire.model.LandingPost;
+import es.urjc.etsii.dad.campfire.entity.LandingPost;
 import es.urjc.etsii.dad.campfire.service.LandingPostService;
 
 @Controller

@@ -1,4 +1,4 @@
-package es.urjc.etsii.dad.campfire.component;
+package es.urjc.etsii.dad.campfire.socket;
 
 import java.util.Optional;
 
@@ -7,14 +7,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import es.urjc.etsii.dad.campfire.model.Avatar;
-import es.urjc.etsii.dad.campfire.model.User;
+import es.urjc.etsii.dad.campfire.entity.Avatar;
+import es.urjc.etsii.dad.campfire.entity.User;
 import es.urjc.etsii.dad.campfire.repository.AvatarRepository;
 import es.urjc.etsii.dad.campfire.repository.UserRepository;
 

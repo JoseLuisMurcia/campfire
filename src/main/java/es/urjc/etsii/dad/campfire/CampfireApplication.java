@@ -8,8 +8,8 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
-import es.urjc.etsii.dad.campfire.component.AvatarSocket;
-import es.urjc.etsii.dad.campfire.service.WebsocketChatHandler;
+import es.urjc.etsii.dad.campfire.socket.ChatSocket;
+import es.urjc.etsii.dad.campfire.socket.AvatarSocket;
 
 @EnableWebSocket
 @SpringBootApplication
@@ -33,7 +33,7 @@ public class CampfireApplication implements WebSocketConfigurer {
 	}
 
 	@Bean
-	public WebsocketChatHandler chatHandler() {
-		return new WebsocketChatHandler();
+	public ChatSocket chatHandler() {
+		return new ChatSocket();
 	}
 }

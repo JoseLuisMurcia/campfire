@@ -1,4 +1,4 @@
-package es.urjc.etsii.dad.campfire.model;
+package es.urjc.etsii.dad.campfire.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

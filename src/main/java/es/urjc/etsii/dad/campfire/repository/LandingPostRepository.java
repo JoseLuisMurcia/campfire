@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import es.urjc.etsii.dad.campfire.model.LandingPost;
+import es.urjc.etsii.dad.campfire.entity.LandingPost;
 
 public interface LandingPostRepository extends JpaRepository<LandingPost, Long> {
 

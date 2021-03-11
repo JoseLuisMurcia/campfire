@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import es.urjc.etsii.dad.campfire.model.Chat;
+import es.urjc.etsii.dad.campfire.entity.Chat;
 import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
 
 @Controller
