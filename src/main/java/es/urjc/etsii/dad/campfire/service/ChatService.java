@@ -15,11 +15,8 @@ import org.springframework.web.socket.TextMessage;
 import es.urjc.etsii.dad.campfire.model.ChatClient;
 
 @Service
-public class ChatServer {
-
-	public final static boolean DEBUG_MODE = true;
-	public final static boolean VERBOSE_MODE = true;
-
+public class ChatService {
+	
 	ObjectMapper mapper = new ObjectMapper();
 
 	private Map<String, ChatClient> chatClients = new ConcurrentHashMap<>();

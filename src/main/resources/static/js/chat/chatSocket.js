@@ -3,6 +3,8 @@ let roomId;
 
 var id=-1;
 const DEBUG = true;
+let chatMessagesDiv;
+
 socket.onopen = () => {
 	if(DEBUG==true){ console.log('[DEBUG] WebSocket connection opened.'); }
 	roomId = document.getElementById("roomid").innerText;
@@ -11,6 +13,7 @@ socket.onopen = () => {
 		roomID: roomId
 	}
 	socket.send(JSON.stringify(message))
+	chatMessagesDiv = document.getElementById("chatMessages");
 }
 
 socket.onclose = () => {
@@ -74,8 +77,7 @@ function removePlayerMsg(msg) {
 	var playerText = playerName + " left the chat"
    	var text = document.createTextNode(playerText);
    	tag.appendChild(text);
-   	var element = document.getElementById("chatMessages");
-   	element.appendChild(tag); 
+   	chatMessagesDiv.appendChild(tag); 
 } // end removePlayerMsg
 
 function updateChat(msg){ //appends the message and the user who sent it
@@ -94,9 +96,7 @@ function updateChat(msg){ //appends the message and the user who sent it
 	if(msg.isFriend == 'friend'){
 		tag.style.color = "#FF0000";
 	}
-
-   	var element = document.getElementById("chatMessages");
-   	element.appendChild(tag); 
+	chatMessagesDiv.appendChild(tag); 
 }
 
 
@@ -112,6 +112,5 @@ function playerJoined(msg){ //Called when a user joins the chat, updates the cha
 	var playerText = playerName + " joined the chat"
    	var text = document.createTextNode(playerText);
    	tag.appendChild(text);
-   	var element = document.getElementById("chatMessages");
-   	element.appendChild(tag); 
+   	chatMessagesDiv.appendChild(tag); 
 }
