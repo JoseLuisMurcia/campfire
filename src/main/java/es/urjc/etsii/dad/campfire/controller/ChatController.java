@@ -12,31 +12,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import es.urjc.etsii.dad.campfire.entity.Chat;
-import es.urjc.etsii.dad.campfire.repository.ChatRoomsRepository;
+import es.urjc.etsii.dad.campfire.service.ChatRoomsService;
 
 @Controller
 public class ChatController {
     
     @Autowired
-    private ChatRoomsRepository chatRepository;
+    private ChatRoomsService chatRoomsService;
 
     @GetMapping("/chat_lobby")
     public String getChat(Model model, HttpSession session){
-        List<Chat> chats = chatRepository.findAll();
-        model.addAttribute("chats", chats);
-        String name = (String)session.getAttribute("username");
-        model.addAttribute("userName", name);
+        model.addAttribute("chats", chatRoomsService.findAll());
+        model.addAttribute("userName", (String)session.getAttribute("username"));
         return "chat/chat_lobby";
     }
 
     @GetMapping("/chat_room/{id}")
     public String getChatRoom(Model model, @PathVariable long id, HttpSession session){
-        Optional<Chat> optionalChat = chatRepository.findById(id);
+        Optional<Chat> optionalChat = chatRoomsService.findById(id);
         if(optionalChat.isPresent()){
             model.addAttribute("chat", optionalChat.get());
         }
-        String name = (String)session.getAttribute("username");
-        model.addAttribute("userName", name);
+        model.addAttribute("userName", (String)session.getAttribute("username"));
         return "chat/chat_room";
     }
 
