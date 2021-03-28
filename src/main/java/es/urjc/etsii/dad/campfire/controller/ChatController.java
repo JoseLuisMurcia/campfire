@@ -1,6 +1,5 @@
 package es.urjc.etsii.dad.campfire.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
