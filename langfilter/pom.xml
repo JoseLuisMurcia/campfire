@@ -8,7 +8,7 @@
 		<version>2.4.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>es.urjc.etsii.dad.langfilter</groupId>
+	<groupId>es.urjc.etsii.dad</groupId>
 	<artifactId>langfilter</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>langfilter</name>
@@ -32,6 +32,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.thrift</groupId>
+  			<artifactId>libthrift</artifactId>
+  			<version>0.14.1</version>
 		</dependency>
 	</dependencies>
 
