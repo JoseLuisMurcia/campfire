@@ -9,7 +9,7 @@ import org.apache.thrift.transport.TTransportException;
 public class CrossPlatformServiceServer {
     TSimpleServer server;
     public void start() throws TTransportException {
-        TServerTransport serverTransport = new TServerSocket(9090);
+        TServerTransport serverTransport = new TServerSocket(9092);
         server = new TSimpleServer(new TServer.Args(serverTransport)
           .processor(new CrossPlatformService.Processor<>(new CrossPlatformServiceImpl())));
 
