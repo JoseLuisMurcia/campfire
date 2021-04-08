@@ -13,7 +13,7 @@ public class CrossPlatformServiceServer {
         server = new TSimpleServer(new TServer.Args(serverTransport)
           .processor(new CrossPlatformService.Processor<>(new CrossPlatformServiceImpl())));
 
-        System.out.print("Starting the server... ");
+        System.out.println("Starting the server... ");
 
         server.serve();
 
@@ -22,7 +22,7 @@ public class CrossPlatformServiceServer {
 
     public void stop() {
         if (server != null && server.isServing()) {
-            System.out.print("Stopping the server... ");
+            System.out.println("Stopping the server... ");
 
             server.stop();
 
