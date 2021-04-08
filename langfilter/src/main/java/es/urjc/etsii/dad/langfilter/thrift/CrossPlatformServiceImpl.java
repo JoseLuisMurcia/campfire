@@ -1,31 +1,14 @@
 package es.urjc.etsii.dad.langfilter.thrift;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.thrift.TException;
 
 public class CrossPlatformServiceImpl implements CrossPlatformService.Iface {
 
     @Override
-    public CrossPlatformResource get(int id) 
+    public String sendMessage(String message)
       throws InvalidOperationException, TException {
-        return new CrossPlatformResource();
-    }
+        System.out.println("HERE IN THE SERVER");
+        return "MESSAGE FILTERED";
+      }
 
-    @Override
-    public void save(CrossPlatformResource resource) 
-      throws InvalidOperationException, TException {
-    }
-
-    @Override
-    public List<CrossPlatformResource> getList() 
-      throws InvalidOperationException, TException {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public boolean ping() throws InvalidOperationException, TException {
-        return true;
-    }
 }

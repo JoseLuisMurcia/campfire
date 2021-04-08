@@ -11,7 +11,6 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import es.urjc.etsii.dad.campfire.socket.ChatSocket;
 import es.urjc.etsii.dad.campfire.thrift.CrossPlatformServiceClient;
-import es.urjc.etsii.dad.campfire.thrift.CrossPlatformServiceServer;
 import es.urjc.etsii.dad.campfire.socket.AvatarSocket;
 
 @EnableWebSocket
@@ -20,10 +19,10 @@ public class CampfireApplication implements WebSocketConfigurer {
 
 	public static void main(String[] args) throws TTransportException {
 		SpringApplication.run(CampfireApplication.class, args);
-		CrossPlatformServiceServer server = new CrossPlatformServiceServer();
-        server.start();
+
 		CrossPlatformServiceClient client = new CrossPlatformServiceClient();
-		client.ping();
+		String message = client.sendMessage("Chúpame la polla");
+		System.out.println("FILTER RESULT: " + message);
 	}
 
 	@Override

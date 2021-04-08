@@ -11,24 +11,21 @@ public class CrossPlatformServiceClient {
 
     public CrossPlatformServiceClient()
     {
-        System.out.println("CrossPlatformServiceClient CREATED");
     }
-    
-    public boolean ping() {
 
-        System.out.println("PING HAS BEEN CALLED");
+    public String sendMessage(String message){
         try {
             TTransport transport;
 
-            transport = new TSocket("127.0.0.1", 9090);
+            transport = new TSocket("127.0.0.1", 9092);
             transport.open();
 
             TProtocol protocol = new TBinaryProtocol(transport);
             CrossPlatformService.Client client = new CrossPlatformService.Client(protocol);
 
-            System.out.print("Calling remote method...");
+            System.out.println("Calling remote method sendMessage...");
 
-            boolean result = client.ping();
+            String result = client.sendMessage(message);
 
             System.out.println("done.");
 
@@ -41,6 +38,6 @@ public class CrossPlatformServiceClient {
             x.printStackTrace();
         }
 
-        return false;
+        return "message did not reach internal service";
     }
 }
