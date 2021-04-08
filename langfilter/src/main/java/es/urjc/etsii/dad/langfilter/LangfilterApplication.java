@@ -1,4 +1,4 @@
-package es.urjc.etsii.dad.langfilter.langfilter;
+package es.urjc.etsii.dad.langfilter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
