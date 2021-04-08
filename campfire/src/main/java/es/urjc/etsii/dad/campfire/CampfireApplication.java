@@ -19,12 +19,6 @@ public class CampfireApplication implements WebSocketConfigurer {
 
 	public static void main(String[] args) throws TTransportException {
 		SpringApplication.run(CampfireApplication.class, args);
-
-		CrossPlatformServiceClient c1 = new CrossPlatformServiceClient();
-		System.out.println("FILTER RESULT: " + c1.sendMessage("Chúpamela polla"));
-		System.out.println("FILTER RESULT: " + c1.sendMessage("Chúpame la polla"));
-		System.out.println("FILTER RESULT: " + c1.sendMessage("maricón"));
-		System.out.println("FILTER RESULT: " + c1.sendMessage("marica"));
 	}
 
 	@Override
