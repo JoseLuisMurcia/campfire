@@ -3,6 +3,7 @@ package es.urjc.etsii.dad.campfire.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,20 +36,9 @@ public class LoginController {
         }
     }
 
-    @PostMapping("login-done")
-    public String postLogin(Model model, String username, String password, HttpSession session) {
-        LoginResponse loginResponse = loginService.loginUser(new User(username, password));
-        session.setAttribute("username", username);
-        if (loginResponse == LoginResponse.SUCCESS) {
-            model.addAttribute("username", username);
-            return "redirect:/home";
-        } else {
-            return "redirect:/";
-        }
-    }
-
     @GetMapping("home")
-    public String getHome(Model model, HttpSession session) {
+    public String getHome(Model model, Authentication auth, HttpSession session) {
+        session.setAttribute("username", auth.getName());
         model.addAttribute("username", session.getAttribute("username"));
         return "home/home";
     }

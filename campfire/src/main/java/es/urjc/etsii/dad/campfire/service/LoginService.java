@@ -3,6 +3,7 @@ package es.urjc.etsii.dad.campfire.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import es.urjc.etsii.dad.campfire.entity.User;
@@ -16,6 +17,9 @@ public class LoginService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     /**
      * Checks if the provided username is available.
@@ -44,6 +48,8 @@ public class LoginService {
     public LoginResponse registerUser(User user) {
         if (!isUsernameAvailable(user.getUsername()))
             return LoginResponse.USERNAME_NOT_AVAILABLE;
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepo.save(user);
         return LoginResponse.SUCCESS;
