@@ -81,3 +81,24 @@ Es la página en la que los usuarios pueden enviarse mensaje entre ellos siempre
 ### Diagrama Entidad/Relación
 ![CampfireEntityRelation_2](https://user-images.githubusercontent.com/49962993/110462909-928a7600-80d1-11eb-97d6-5c296e3e3cfc.png)
 
+## Instrucciones para desplegar la aplicación
+Se parte de una máquina virtual vacía que solo tiene el Sistema Operativo, en este caso Ubuntu, instalado.
+
+### Generar .jdk
+Para ello se debe navegar hasta el directorio de la aplicación donde se encuentre el pom.xml y ejecutar: ".\mvnw package"
+Esto genera un .jdk que se encuentra en la carpeta /target, luego este .jdk se pasa a la máquina virtual.
+Para pasar el .jdk a la máquina virtual, se ha creado una carpeta en el SO anfitrión que se ha compartido al SO guest.
+
+### Instalar JRE y JDK
+Una vez se tiene el .jdk en la máquina virtual, va a hacer falta tener tanto el JRE y el JDK instalados, para ello,
+se ejecutarán los comandos: "sudo apt install default-jre" y "sudo apt install default-jdk".
+
+### Instalar MySQL y configurarlo
+Con el JRE y JDK no basta para ejecutar la aplicación principal, ya que hace uso de una BD MySQL, por lo que también debe ser instalada, para ello se ejecuta el comando: "sudo mysql_secure_installation"
+Una vez se ha instalado MySQL, hay que ejecutarlo y para ello: "sudo mysql". Una vez estamos dentro, como la aplicación hace uso de una contraseña, hay que cambiar la contraseña del usuario root por la indicada en el archivo application.properties de la aplicación principal.
+Para ello ese ejecuta el comando: "ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'distribuidas';"
+El último paso es crear el esquema o BBDD, para ello se utiliza el comando: "CREATE DATABASE campfire;" y es importante indicar a MySQL que esa va a ser la BBDD que se utilice, para ello: "USE campfire;" y ya podemos salir de MySQL.
+
+### Ejecutar la aplicación
+Con todos los pasos anteriores cumplidos, ejecutar la aplicación deseada requiere el siguiente comando: "java -jar nombre_archivo.jar", en nuestro caso, se han abierto dos terminales distintas para ejecutar tanto la aplicación principal como el servicio interno de manera independiente.
+
