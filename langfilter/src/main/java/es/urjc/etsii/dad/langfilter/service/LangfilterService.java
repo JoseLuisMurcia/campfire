@@ -1,19 +1,36 @@
 package es.urjc.etsii.dad.langfilter.service;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 public class LangfilterService {
 
-	private String[] dictionary = fileToString("langfilter/src/resources/Dictionary.txt").split("\n");
+	private boolean deployed = false;
+	private String[] dictionary = fileToString("langfilter/src/main/resources/dictionary.txt").split("\n");
 
     private String fileToString(String _path)
 	{
 		try
 		{
-			FileReader fr = new FileReader("langfilter/src/main/resources/Dictionary.txt");
-			BufferedReader br = new BufferedReader(fr);
+			BufferedReader br;
+			if (deployed){
+				Resource resource = new ClassPathResource("classpath:dictionary.txt");
+				InputStream is = resource.getInputStream();
+				br = new BufferedReader(new InputStreamReader(is));
+			}
+			else{
+				FileReader fr = new FileReader(_path);
+				br = new BufferedReader(fr);
+			}			
+			
 			String _line = "";
 			String _lines = "";
 			while(_line != null)

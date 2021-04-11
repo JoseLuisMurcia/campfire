@@ -38,6 +38,7 @@ public class CrossPlatformServiceClient {
             x.printStackTrace();
         }
 
-        return "message did not reach internal service";
+        //return "message did not reach internal service";
+        return message + " (not filtered)";
     }
 }
