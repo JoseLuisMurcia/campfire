@@ -93,9 +93,11 @@ Para pasar el .jdk a la máquina virtual, se ha creado una carpeta en el SO anfi
 Una vez se tiene el .jdk en la máquina virtual, va a hacer falta tener tanto el JRE y el JDK instalados, para ello,
 se ejecutarán los comandos: "sudo apt install default-jre" y "sudo apt install default-jdk".
 
-### Instalar MySQL y configurarlo
-Con el JRE y JDK no basta para ejecutar la aplicación principal, ya que hace uso de una BD MySQL, por lo que también debe ser instalada, para ello se ejecuta el comando: "sudo mysql_secure_installation"
-Una vez se ha instalado MySQL, hay que ejecutarlo y para ello: "sudo mysql". Una vez estamos dentro, como la aplicación hace uso de una contraseña, hay que cambiar la contraseña del usuario root por la indicada en el archivo application.properties de la aplicación principal.
+### Instalar y configurar MySQL 
+Con el JRE y JDK no basta para ejecutar la aplicación principal, ya que hace uso de una BD MySQL, por lo que también debe ser instalada, para ello se ejecuta el comando:
+"sudo apt install mysql-server".
+Una vez se ha instalado MySQL, hay que configurarlo, elegir contraseña y usuario, para ello ejecutar: "sudo mysql_secure_installation"
+Con esa configuración realizada, hay que ejecutar MySQL y para ello: "sudo mysql". Una vez estamos dentro, como la aplicación hace uso de una contraseña, hay que cambiar la contraseña del usuario root por la indicada en el archivo application.properties de la aplicación principal.
 Para ello ese ejecuta el comando: "ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'distribuidas';"
 El último paso es crear el esquema o BBDD, para ello se utiliza el comando: "CREATE DATABASE campfire;" y es importante indicar a MySQL que esa va a ser la BBDD que se utilice, para ello: "USE campfire;" y ya podemos salir de MySQL.
 
