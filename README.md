@@ -81,6 +81,9 @@ Es la página en la que los usuarios pueden enviarse mensaje entre ellos siempre
 ### Diagrama Entidad/Relación
 ![CampfireEntityRelation_2](https://user-images.githubusercontent.com/49962993/110462909-928a7600-80d1-11eb-97d6-5c296e3e3cfc.png)
 
+## Diagrama de clases
+![Campfire](https://user-images.githubusercontent.com/49962993/114434976-e8b47280-9bc3-11eb-869f-3a144d8f7844.png)
+
 ## Instrucciones para desplegar la aplicación
 Se parte de una máquina virtual vacía que solo tiene el Sistema Operativo, en este caso Ubuntu, instalado.
 
