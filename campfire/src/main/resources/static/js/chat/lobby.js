@@ -1,4 +1,4 @@
-const socket = new WebSocket("ws://127.0.0.1:8080/chat")
+const socket = new WebSocket("wss://127.0.0.1:8443/chat")
 
 const DEBUG = true;
 
