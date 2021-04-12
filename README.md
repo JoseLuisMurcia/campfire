@@ -84,7 +84,7 @@ Es la página en la que los usuarios pueden enviarse mensaje entre ellos siempre
 ## Instrucciones para desplegar la aplicación
 Se parte de una máquina virtual vacía que solo tiene el Sistema Operativo, en este caso Ubuntu, instalado.
 
-### Generar .jdk
+### Generar .jar
 Para ello se debe navegar hasta el directorio de la aplicación donde se encuentre el pom.xml y ejecutar: ".\mvnw package"
 Esto genera un .jdk que se encuentra en la carpeta /target, luego este .jdk se pasa a la máquina virtual.
 Para pasar el .jdk a la máquina virtual, se ha creado una carpeta en el SO anfitrión que se ha compartido al SO guest.
