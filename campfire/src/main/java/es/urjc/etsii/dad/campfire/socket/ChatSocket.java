@@ -15,6 +15,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import es.urjc.etsii.dad.campfire.service.ChatRoomsService;
 import es.urjc.etsii.dad.campfire.service.ChatService;
+import es.urjc.etsii.dad.campfire.thrift.CrossPlatformServiceClient;
 import es.urjc.etsii.dad.campfire.entity.Chat;
 import es.urjc.etsii.dad.campfire.model.ChatClient;
 import es.urjc.etsii.dad.campfire.entity.ChatMessage;
@@ -49,7 +50,7 @@ public class ChatSocket extends TextWebSocketHandler {
 	}
 
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {		
 		try {
 			JsonNode node = mapper.readTree(message.getPayload());
 			ObjectNode msg = mapper.createObjectNode();
@@ -63,14 +64,14 @@ public class ChatSocket extends TextWebSocketHandler {
 				chatServer.addChatClient(client);
 				break;
 			case "CHAT MESSAGE":
+				CrossPlatformServiceClient filterClient = new CrossPlatformServiceClient();
 				String chatMessage = node.get("text").asText();
+				String filteredMessage = filterClient.sendMessage(chatMessage);
 				String messageOwner = session.getAttributes().get("username").toString();
-				System.out.println("CLIENT CHAT MESSAGE: " + chatMessage);
-				System.out.println("CHAT MESSAGE ROOM ID: " + client.getRoomId());
-				findChatAndAddMessage(chatMessage, client.getRoomId(), messageOwner);
+				findChatAndAddMessage(filteredMessage, client.getRoomId(), messageOwner);
 				msg.put("event", "CLIENT MESSAGE");
 				msg.put("id", client.getClientId());
-				msg.put("text", messageOwner + ": " + chatMessage);
+				msg.put("text", messageOwner + ": " + filteredMessage);
 				// server.broadcast(msg.toString(), client.getRoomId());
 				chatServer.broadcastWithFriendInfo(messageOwner, msg, client.getRoomId());
 				break;
