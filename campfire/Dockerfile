@@ -1,0 +1,3 @@
+FROM openjdk:11-jre-slim
+COPY target/campfire.jar campfire.jar
+CMD java -jar campfire.jar

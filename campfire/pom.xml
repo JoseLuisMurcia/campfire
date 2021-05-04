@@ -93,6 +93,7 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<finalName>campfire</finalName>
 	</build>
 
 </project>
