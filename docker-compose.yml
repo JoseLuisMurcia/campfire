@@ -1,3 +1,5 @@
+version: '3'
+
 services:
     database:
         container_name: database
@@ -5,9 +7,15 @@ services:
         environment: 
             MYSQL_DATABASE: campfire
             MYSQL_ROOT_PASSWORD: distribuidas
-        expose:
-            - "3306"
-        
+        ports:
+            - "3306:3306"
+
+    langfilter:
+        container_name: langfilter
+        build: ./langfilter
+        ports:
+            - "9092:9092"
+  
     campfire:
         container_name: campfire
         build: ./campfire
@@ -15,13 +23,20 @@ services:
             - "8443:8443"
         environment: 
             SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/campfire    
-        links:
+        depends_on:
             - database
             - langfilter
         restart: on-failure
 
-    langfilter:
-        container_name: langfilter
-        build: ./langfilter
-        expose:
-            - "9092"
+    loadbalancer:
+        container_name: loadbalancer
+        build: ./haproxy
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            LOG_LEVEL: "debug"
+        depends_on:
+            - campfire
+
+    
