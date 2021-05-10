@@ -15,6 +15,12 @@ services:
         build: ./langfilter
         expose:
             - "9092"
+
+    langfilter2:
+        container_name: langfilter2
+        build: ./langfilter
+        expose:
+            - "9092"
   
     campfire:
         container_name: campfire
@@ -52,5 +58,18 @@ services:
             LOG_LEVEL: "debug"
         depends_on:
             - campfire
+
+    internal_loadbalancer:
+        container_name: internal_loadbalancer
+        build: ./internal_haproxy
+        ports:
+            - "8080:8080"
+            - "9080:9080"
+        environment:
+            LOG_LEVEL: "debug"
+        depends_on:
+            - langfilter
+    
+
 
     
