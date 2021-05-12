@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Table;
+
+//@Table(appliesTo = "chat")
 @Entity
 public class Chat {
 

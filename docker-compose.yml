@@ -1,55 +1,91 @@
 version: '3'
 
 services:
-    database:
-        container_name: database
-        image: mysql:latest
-        environment: 
-            MYSQL_DATABASE: campfire
-            MYSQL_ROOT_PASSWORD: distribuidas
+
+    mysql_master:
+        image: mysql:5.7
+        env_file:
+            - ./mysql/master/mysql_master.env
+        container_name: "mysql_master"
+        restart: "no"
         expose:
             - "3306"
+        volumes:
+            - ./mysql/master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+            - ./mysql/master/data:/var/lib/mysql
 
-    langfilter:
-        container_name: langfilter
+    mysql_slave:
+        image: mysql:5.7
+        env_file:
+            - ./mysql/slave/mysql_slave.env
+        container_name: "mysql_slave"
+        restart: "no"
+        expose:
+            - "3306"
+        depends_on:
+            - mysql_master
+        volumes:
+            - ./mysql/slave/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+            - ./mysql/slave/data:/var/lib/mysql
+
+    langfilter-a:
+        container_name: langfilter-a
         build: ./langfilter
         expose:
             - "9092"
 
-    langfilter2:
-        container_name: langfilter2
+    langfilter-b:
+        container_name: langfilter-b
         build: ./langfilter
         expose:
             - "9092"
   
-    campfire:
-        container_name: campfire
+    campfire-a:
+        container_name: campfire-a
         build: ./campfire
         expose:
             - "8443"
             - "5701"
-        environment: 
-            SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/campfire    
         depends_on:
-            - database
-            - langfilter
+            - mysql_master
+            - langfilter-a
+            - langfilter-b
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:mysql:replication://mysql_master:3306,mysql_slave:3306/campfire
+            #- SPRING_DATASOURCE_URL=jdbc:mysql://mysql_master:3306/campfire
         restart: on-failure
 
-    campfire2:
-        container_name: campfire2
+    campfire-b:
+        container_name: campfire-b
         build: ./campfire
         expose:
             - "8443"
-            - "5701"
-        environment: 
-            SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/campfire    
+            - "5701"  
         depends_on:
-            - database
-            - langfilter
+            - mysql_master
+            - langfilter-a
+            - langfilter-b
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:mysql:replication://mysql_master:3306,mysql_slave:3306/campfire
+            #- SPRING_DATASOURCE_URL=jdbc:mysql://mysql_master:3306/campfire
+        restart: on-failure
+
+    campfire-c:
+        container_name: campfire-c
+        build: ./campfire
+        expose:
+            - "8443"
+            - "5701"  
+        depends_on:
+            - mysql_master
+            - langfilter-a
+            - langfilter-b
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:mysql:replication://mysql_master:3306,mysql_slave:3306/campfire
         restart: on-failure
     
-    loadbalancer:
-        container_name: loadbalancer
+    campfire_loadbalancer:
+        container_name: campfire_loadbalancer
         build: ./haproxy
         ports:
             - "80:80"
@@ -62,9 +98,12 @@ services:
     internal_loadbalancer:
         container_name: internal_loadbalancer
         build: ./internal_haproxy
-        ports:
-            - "8080:8080"
-            - "9080:9080"
+   #     ports:
+   #         - "8080:8080"
+   #         - "9080:9080"
+        expose:
+            - "8080"
+            - "9080"
         environment:
             LOG_LEVEL: "debug"
         depends_on:
