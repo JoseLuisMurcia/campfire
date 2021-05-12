@@ -17,7 +17,7 @@ public class CrossPlatformServiceClient {
         try {
             TTransport transport;
 
-            transport = new TSocket("127.0.0.1", 9092);
+            transport = new TSocket("internal_loadbalancer", 9080);
             transport.open();
 
             TProtocol protocol = new TBinaryProtocol(transport);

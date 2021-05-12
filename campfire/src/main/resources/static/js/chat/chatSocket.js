@@ -1,4 +1,4 @@
-const socket = new WebSocket("wss://127.0.0.1:8443/chat");
+const socket = new WebSocket("wss://127.0.0.1:443/chat");
 let roomId;
 
 var id=-1;

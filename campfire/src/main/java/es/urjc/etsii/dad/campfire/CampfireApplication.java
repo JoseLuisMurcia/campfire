@@ -1,16 +1,20 @@
 package es.urjc.etsii.dad.campfire;
 
+
+
+
 import org.apache.thrift.transport.TTransportException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
-import es.urjc.etsii.dad.campfire.socket.ChatSocket;
 import es.urjc.etsii.dad.campfire.socket.AvatarSocket;
+import es.urjc.etsii.dad.campfire.socket.ChatSocket;
 
 @EnableWebSocket
 @SpringBootApplication
@@ -37,4 +41,6 @@ public class CampfireApplication implements WebSocketConfigurer {
 	public ChatSocket chatHandler() {
 		return new ChatSocket();
 	}
+
+	
 }
