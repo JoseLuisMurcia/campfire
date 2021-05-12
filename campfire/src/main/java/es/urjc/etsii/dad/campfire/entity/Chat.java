@@ -1,5 +1,6 @@
 package es.urjc.etsii.dad.campfire.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Chat {
+public class Chat implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

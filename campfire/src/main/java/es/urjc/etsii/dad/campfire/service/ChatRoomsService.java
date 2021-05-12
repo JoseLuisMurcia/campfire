@@ -28,7 +28,7 @@ public class ChatRoomsService {
 
     @Cacheable("chats")
     public List<Chat> findAll(){
-        System.out.println("kachau");
+        System.out.println("------------------------------------------\nC H A T S  C A C H E D\n------------------------------------------------\n");
         return chatRoomsRepository.findAll();
     }
 }
