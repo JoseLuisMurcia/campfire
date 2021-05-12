@@ -109,3 +109,13 @@ El último paso es crear el esquema o BBDD, para ello se utiliza el comando: **C
 ### Ejecutar la aplicación
 Con todos los pasos anteriores cumplidos, ejecutar la aplicación deseada requiere el siguiente comando: **java -jar nombre_archivo.jar**, en nuestro caso, se han abierto dos terminales distintas para ejecutar tanto la aplicación principal como el servicio interno de manera independiente.
 
+## Interfaz Servicio Interno
+El servicio interno, Langfilter, es usado para filtrar los mensajes enviados por los usuarios en los chats. Esto se logra comparando los mensajes con una lista de palabras malsonantes y eliminándolas. Por ello, la interfaz del servicio interno únicamente expone un método RPC.
+
+- String filter(String msg): devuelve msg filtrado. El filtro elimina palabras malsonantes.
+
+![InterfazSI](https://user-images.githubusercontent.com/49457798/118026546-2f32f380-b361-11eb-8402-9f8d76282159.png)
+
+## Arquitectura Docker
+![ArchDAD](https://user-images.githubusercontent.com/49457798/118027208-f6dfe500-b361-11eb-8050-a1dd0d66fefb.png)
+
