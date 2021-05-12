@@ -1,5 +1,5 @@
 //INITIALIZE SOCKET
-var socket = new WebSocket("wss://127.0.0.1:8443/avatar-customization");
+var socket = new WebSocket("wss://127.0.0.1:443/avatar-customization");
 
 function preloadImages() {
     var _images = new Array()

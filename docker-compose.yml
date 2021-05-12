@@ -1,0 +1,89 @@
+version: '3'
+
+services:
+
+    database:
+        container_name: database
+        image: mysql:latest
+        environment: 
+            MYSQL_DATABASE: campfire
+            MYSQL_ROOT_PASSWORD: distribuidas
+        expose:
+            - "3306"
+
+    langfilter-a:
+        container_name: langfilter-a
+        build: ./langfilter
+        expose:
+            - "9092"
+
+    langfilter-b:
+        container_name: langfilter-b
+        build: ./langfilter
+        expose:
+            - "9092"
+  
+    campfire-a:
+        container_name: campfire-a
+        build: ./campfire
+        expose:
+            - "8443"
+            - "5701"
+        depends_on:
+            - database
+            - langfilter-a
+            - langfilter-b
+        restart: on-failure
+
+    campfire-b:
+        container_name: campfire-b
+        build: ./campfire
+        expose:
+            - "8443"
+            - "5701"  
+        depends_on:
+            - database
+            - langfilter-a
+            - langfilter-b
+        restart: on-failure
+
+    campfire-c:
+        container_name: campfire-c
+        build: ./campfire
+        expose:
+            - "8443"
+            - "5701"  
+        depends_on:
+            - database
+            - langfilter-a
+            - langfilter-b
+        restart: on-failure
+    
+    campfire_loadbalancer:
+        container_name: campfire_loadbalancer
+        build: ./haproxy
+        ports:
+            - "80:80"
+            - "443:443"
+        environment:
+            LOG_LEVEL: "debug"
+        depends_on:
+            - campfire-a
+            - campfire-b
+            - campfire-c
+
+    internal_loadbalancer:
+        container_name: internal_loadbalancer
+        build: ./internal_haproxy
+        expose:
+            - "8080"
+            - "9080"
+        environment:
+            LOG_LEVEL: "debug"
+        depends_on:
+            - langfilter-a
+            - langfilter-b
+    
+
+
+    

@@ -1,5 +1,7 @@
 package es.urjc.etsii.dad.campfire.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Landing_Post")
-public class LandingPost {
+public class LandingPost implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

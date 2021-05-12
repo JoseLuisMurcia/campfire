@@ -14,7 +14,6 @@ public class CrossPlatformServiceServer {
           .processor(new CrossPlatformService.Processor<>(new CrossPlatformServiceImpl())));
 
         System.out.println("Starting the server... ");
-
         server.serve();
 
         System.out.println("------------server done------------");
