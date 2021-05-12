@@ -1,8 +1,6 @@
 package es.urjc.etsii.dad.langfilter.service;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +11,7 @@ import org.springframework.core.io.Resource;
 
 public class LangfilterService {
 
-	private boolean deployed = false;
+	private boolean deployed = true;
 	private String[] dictionary = fileToString("langfilter/src/main/resources/dictionary.txt").split("\n");
 
     private String fileToString(String _path)
