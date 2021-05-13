@@ -1,5 +1,7 @@
 # Campfire
 
+https://youtu.be/vOihchoVhcU
+
 **Campfire** es una red social más minimalista y personal que el resto. Su objetivo es crear un ambiente más acogedor y menos invasivo en el cuál las personas puedan compartir sus experiencias y problemas de una manera más íntima.
 
 El funcionamiento principal de **Campfire** se basa en el uso de **hogueras** que pueden ser creadas por cualquier usuario registrado. Las hogueras actúan a modo de salas de conversación con un número reducido de usuarios. Estos usuarios podrán ser amigos o gente anónima y/o desconocida. Cada usuario dispondrá de un avatar que representará su presencia en cada hoguera. Los avatares se podrán personalizar a través de un sistema de puntos que se obtendrán al participar en hogueras.
